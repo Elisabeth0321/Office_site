@@ -1,0 +1,67 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Голубой фон */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px; /* Закругленные углы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #ff69b4; /* Розовый цвет */
+    text-align: center;
+}
+
+/* Кнопки */
+.btn-add, .btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+}
+
+.btn-add {
+    background-color: #ff69b4; /* Розовый */
+}
+
+.btn-edit {
+    background-color: #87ceeb; /* Голубой */
+}
+
+.btn-delete {
+    background-color: #ff4500; /* Оранжевый */
+}
+
+/* Таблица */
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.employee-table th, .employee-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.employee-table th {
+    background-color: #ff69b4; /* Розовый */
+    color: #fff;
+}
+
+.employee-table tr:hover {
+    background-color: #f5f5f5;
+}

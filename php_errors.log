@@ -1,0 +1,599 @@
+[15-Mar-2025 13:40:47 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv" not found in /var/www/office/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 8
+[15-Mar-2025 13:40:48 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv" not found in /var/www/office/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 8
+[15-Mar-2025 13:53:00 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv\Dotenv" not found in /var/www/office/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 9
+[15-Mar-2025 13:53:01 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv\Dotenv" not found in /var/www/office/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 9
+[15-Mar-2025 13:53:01 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv\Dotenv" not found in /var/www/office/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 9
+[15-Mar-2025 13:53:02 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Dotenv\Dotenv\Dotenv" not found in /var/www/office/index.php:9
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 9
+[15-Mar-2025 13:55:28 Europe/Minsk] PHP Fatal error:  Uncaught Dotenv\Exception\InvalidPathException: Unable to read any of the environment file(s) at [/var/www/office/.env]. in /var/www/office/vendor/vlucas/phpdotenv/src/Store/FileStore.php:68
+Stack trace:
+#0 /var/www/office/vendor/vlucas/phpdotenv/src/Dotenv.php(222): Dotenv\Store\FileStore->read()
+#1 /var/www/office/index.php(10): Dotenv\Dotenv->load()
+#2 {main}
+  thrown in /var/www/office/vendor/vlucas/phpdotenv/src/Store/FileStore.php on line 68
+[15-Mar-2025 13:56:27 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "App\Core\EntityManager" not found in /var/www/office/index.php:12
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 12
+[15-Mar-2025 13:58:45 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "App\Core\EntityManager" not found in /var/www/office/index.php:12
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 12
+[15-Mar-2025 13:58:46 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "App\Core\EntityManager" not found in /var/www/office/index.php:12
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 12
+[15-Mar-2025 13:59:51 Europe/Minsk] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'office' in /var/www/office/App/Core/EntityManager.php:12
+Stack trace:
+#0 /var/www/office/App/Core/EntityManager.php(12): PDO->__construct()
+#1 /var/www/office/index.php(12): App\Core\EntityManager->__construct()
+#2 {main}
+  thrown in /var/www/office/App/Core/EntityManager.php on line 12
+[15-Mar-2025 13:59:52 Europe/Minsk] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'office' in /var/www/office/App/Core/EntityManager.php:12
+Stack trace:
+#0 /var/www/office/App/Core/EntityManager.php(12): PDO->__construct()
+#1 /var/www/office/index.php(12): App\Core\EntityManager->__construct()
+#2 {main}
+  thrown in /var/www/office/App/Core/EntityManager.php on line 12
+[15-Mar-2025 14:00:17 Europe/Minsk] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'office' in /var/www/office/App/Core/EntityManager.php:12
+Stack trace:
+#0 /var/www/office/App/Core/EntityManager.php(12): PDO->__construct()
+#1 /var/www/office/index.php(12): App\Core\EntityManager->__construct()
+#2 {main}
+  thrown in /var/www/office/App/Core/EntityManager.php on line 12
+[15-Mar-2025 14:00:20 Europe/Minsk] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'office' in /var/www/office/App/Core/EntityManager.php:12
+Stack trace:
+#0 /var/www/office/App/Core/EntityManager.php(12): PDO->__construct()
+#1 /var/www/office/index.php(12): App\Core\EntityManager->__construct()
+#2 {main}
+  thrown in /var/www/office/App/Core/EntityManager.php on line 12
+[15-Mar-2025 14:00:21 Europe/Minsk] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'office' in /var/www/office/App/Core/EntityManager.php:12
+Stack trace:
+#0 /var/www/office/App/Core/EntityManager.php(12): PDO->__construct()
+#1 /var/www/office/index.php(12): App\Core\EntityManager->__construct()
+#2 {main}
+  thrown in /var/www/office/App/Core/EntityManager.php on line 12
+[15-Mar-2025 19:40:36 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:23 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:24 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:42:25 Europe/Minsk] PHP Fatal error:  Uncaught Error: Undefined constant "DIR" in /var/www/office/index.php:3
+Stack trace:
+#0 {main}
+  thrown in /var/www/office/index.php on line 3
+[15-Mar-2025 19:47:32 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 26 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(26): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:48:25 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 26 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(26): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:48:26 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 26 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(26): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:48:27 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 26 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(26): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:42 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:42 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:43 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:43 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:43 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:50:43 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Controllers\EmployeeController::__construct(): Argument #1 ($employeeRepository) must be of type App\Repositories\EmployeeRepository, App\Core\EntityManager given, called in /var/www/office/App/Core/Router.php on line 29 and defined in /var/www/office/App/Controllers/EmployeeController.php:12
+Stack trace:
+#0 /var/www/office/App/Core/Router.php(29): App\Controllers\EmployeeController->__construct()
+#1 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#2 {main}
+  thrown in /var/www/office/App/Controllers/EmployeeController.php on line 12
+[15-Mar-2025 19:56:20 Europe/Minsk] PHP Fatal error:  Uncaught Error: Cannot use object of type App\Models\Employee as array in /var/www/office/App/Views/employee_list.html:4
+Stack trace:
+#0 /var/www/office/App/Services/TemplateEngine.php(16): include()
+#1 /var/www/office/App/Controllers/EmployeeController.php(24): App\Services\TemplateEngine->render()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Views/employee_list.html on line 4
+[15-Mar-2025 20:01:04 Europe/Minsk] PHP Fatal error:  Uncaught Error: Cannot use object of type App\Models\Employee as array in /var/www/office/App/Views/employee_list.html:11
+Stack trace:
+#0 /var/www/office/App/Services/TemplateEngine.php(16): include()
+#1 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Views/employee_list.html on line 11
+[15-Mar-2025 20:05:13 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(11): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:14 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(11): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:14 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(11): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:46 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:47 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:48 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:48 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:48 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:48 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:05:48 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:08:16 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:09:54 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:15:18 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:15:19 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:15:20 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:15:20 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:31 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:32 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:32 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:34 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:34 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:35 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:44 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:16:44 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(32): App\Models\Employee->getName()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(28): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:17:06 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(28): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:19:50 Europe/Minsk] PHP Warning:  Undefined property: App\Repositories\EmployeeRepository::$logger in /var/www/office/App/Repositories/EmployeeRepository.php on line 21
+[15-Mar-2025 20:19:50 Europe/Minsk] PHP Fatal error:  Uncaught Error: Call to a member function info() on null in /var/www/office/App/Repositories/EmployeeRepository.php:21
+Stack trace:
+#0 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#1 [internal function]: App\Controllers\EmployeeController->listAction()
+#2 /var/www/office/App/Core/Router.php(28): call_user_func()
+#3 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#4 {main}
+  thrown in /var/www/office/App/Repositories/EmployeeRepository.php on line 21
+[15-Mar-2025 20:24:06 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Monolog\Logger" not found in /var/www/office/App/Core/Router.php:18
+Stack trace:
+#0 /var/www/office/index.php(16): App\Core\Router->__construct()
+#1 {main}
+  thrown in /var/www/office/App/Core/Router.php on line 18
+[15-Mar-2025 20:24:06 Europe/Minsk] PHP Fatal error:  Uncaught Error: Class "Monolog\Logger" not found in /var/www/office/App/Core/Router.php:18
+Stack trace:
+#0 /var/www/office/index.php(16): App\Core\Router->__construct()
+#1 {main}
+  thrown in /var/www/office/App/Core/Router.php on line 18
+[15-Mar-2025 20:24:57 Europe/Minsk] PHP Fatal error:  Uncaught UnexpectedValueException: There is no existing directory at "/var/www/office/App/Core/logs" and it could not be created: Permission denied in /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:241
+Stack trace:
+#0 /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php(141): Monolog\Handler\StreamHandler->createDir()
+#1 /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(44): Monolog\Handler\StreamHandler->write()
+#2 /var/www/office/vendor/monolog/monolog/src/Monolog/Logger.php(391): Monolog\Handler\AbstractProcessingHandler->handle()
+#3 /var/www/office/vendor/monolog/monolog/src/Monolog/Logger.php(607): Monolog\Logger->addRecord()
+#4 /var/www/office/App/Core/Router.php(30): Monolog\Logger->info()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 241
+[15-Mar-2025 20:24:57 Europe/Minsk] PHP Fatal error:  Uncaught UnexpectedValueException: There is no existing directory at "/var/www/office/App/Core/logs" and it could not be created: Permission denied in /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php:241
+Stack trace:
+#0 /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php(141): Monolog\Handler\StreamHandler->createDir()
+#1 /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php(44): Monolog\Handler\StreamHandler->write()
+#2 /var/www/office/vendor/monolog/monolog/src/Monolog/Logger.php(391): Monolog\Handler\AbstractProcessingHandler->handle()
+#3 /var/www/office/vendor/monolog/monolog/src/Monolog/Logger.php(607): Monolog\Logger->addRecord()
+#4 /var/www/office/App/Core/Router.php(30): Monolog\Logger->info()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/vendor/monolog/monolog/src/Monolog/Handler/StreamHandler.php on line 241
+[15-Mar-2025 20:25:29 Europe/Minsk] PHP Warning:  Undefined property: App\Repositories\EmployeeRepository::$logger in /var/www/office/App/Repositories/EmployeeRepository.php on line 21
+[15-Mar-2025 20:25:29 Europe/Minsk] PHP Fatal error:  Uncaught Error: Call to a member function info() on null in /var/www/office/App/Repositories/EmployeeRepository.php:21
+Stack trace:
+#0 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#1 [internal function]: App\Controllers\EmployeeController->listAction()
+#2 /var/www/office/App/Core/Router.php(29): call_user_func()
+#3 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#4 {main}
+  thrown in /var/www/office/App/Repositories/EmployeeRepository.php on line 21
+[15-Mar-2025 20:25:38 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:26:32 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:26:32 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:26:32 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:26:32 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:26:33 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:26:33 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:26:33 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:26:33 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:26:33 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:26:33 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:26:33 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:26:33 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:26:33 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:26:33 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:26:33 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:26:33 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:27:15 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: log(): Argument #1 ($num) must be of type float, string given in /var/www/office/App/Repositories/EmployeeRepository.php:20
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(20): log()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(29): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Repositories/EmployeeRepository.php on line 20
+[15-Mar-2025 20:27:16 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: log(): Argument #1 ($num) must be of type float, string given in /var/www/office/App/Repositories/EmployeeRepository.php:20
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(20): log()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(29): call_user_func()
+#4 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Repositories/EmployeeRepository.php on line 20
+[15-Mar-2025 20:27:39 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:27:39 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:27:39 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:27:39 Europe/Minsk] PHP Fatal error:  Uncaught TypeError: App\Models\Employee::getName(): Return value must be of type string, null returned in /var/www/office/App/Models/Employee.php:14
+Stack trace:
+#0 /var/www/office/App/Views/employee_list.php(12): App\Models\Employee->getName()
+#1 /var/www/office/App/Services/TemplateEngine.php(16): include('...')
+#2 /var/www/office/App/Controllers/EmployeeController.php(23): App\Services\TemplateEngine->render()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(19): App\Core\Router->dispatch()
+#6 {main}
+  thrown in /var/www/office/App/Models/Employee.php on line 14
+[15-Mar-2025 20:34:06 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:34:06 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:34:06 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:36:28 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:36:28 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:36:28 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:38:05 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:38:05 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:38:05 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:38:15 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:38:15 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:38:15 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 20:38:33 Europe/Minsk] Executing findAll() method
+[15-Mar-2025 20:38:33 Europe/Minsk] Query executed, fetching results...
+[15-Mar-2025 20:38:33 Europe/Minsk] Number of employees found: 5
+[15-Mar-2025 22:19:52 Europe/Minsk] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\Employee::__construct(), 0 passed and exactly 5 expected in /var/www/office/App/Models/Employee.php:13
+Stack trace:
+#0 [internal function]: App\Models\Employee->__construct()
+#1 /var/www/office/App/Repositories/EmployeeRepository.php(21): PDOStatement->fetchAll()
+#2 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#3 [internal function]: App\Controllers\EmployeeController->listAction()
+#4 /var/www/office/App/Core/Router.php(29): call_user_func()
+#5 /var/www/office/index.php(17): App\Core\Router->dispatch()
+#6 {main}
+
+Next PDOException: SQLSTATE[HY000]: General error: could not call class constructor in /var/www/office/App/Repositories/EmployeeRepository.php:21
+Stack trace:
+#0 /var/www/office/App/Repositories/EmployeeRepository.php(21): PDOStatement->fetchAll()
+#1 /var/www/office/App/Controllers/EmployeeController.php(19): App\Repositories\EmployeeRepository->findAll()
+#2 [internal function]: App\Controllers\EmployeeController->listAction()
+#3 /var/www/office/App/Core/Router.php(29): call_user_func()
+#4 /var/www/office/index.php(17): App\Core\Router->dispatch()
+#5 {main}
+  thrown in /var/www/office/App/Repositories/EmployeeRepository.php on line 21
