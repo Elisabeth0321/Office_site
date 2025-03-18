@@ -18,7 +18,7 @@ class EmployeeController extends BaseController
     {
         $employees = $this->employeeService->getAllEmployees();
 
-        $templatePath = __DIR__ . '/../Views/employee_list.php';
+        $templatePath = __DIR__ . '/../Views/employee_list.html';
         $templateEngine = new TemplateEngine();
         echo $templateEngine->render($templatePath, [
             'employees' => $employees
@@ -40,7 +40,7 @@ class EmployeeController extends BaseController
             return;
         }
 
-        $templatePath = __DIR__ . '/../Views/employee_view.php';
+        $templatePath = __DIR__ . '/../Views/employee.html';
         $templateEngine = new TemplateEngine();
         echo $templateEngine->render($templatePath, ['employee' => $employee]);
     }
@@ -64,7 +64,7 @@ class EmployeeController extends BaseController
 
     public function addFormAction(): void
     {
-        $templatePath = __DIR__ . '/../Views/employee_add_form.php';
+        $templatePath = __DIR__ . '/../Views/employee_add_form.html';
         $templateEngine = new TemplateEngine();
         echo $templateEngine->render($templatePath);
     }
@@ -105,7 +105,7 @@ class EmployeeController extends BaseController
             return;
         }
 
-        $templatePath = __DIR__ . '/../Views/employee_edit_form.php';
+        $templatePath = __DIR__ . '/../Views/employee_edit_form.html';
         $templateEngine = new TemplateEngine();
         echo $templateEngine->render($templatePath, ['employee' => $employee]);
     }

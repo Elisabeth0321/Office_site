@@ -1,27 +1,35 @@
-/* Основные стили */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* Голубой фон */
+    background-color: #f0f8ff;
     color: #333;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 18px;
 }
 
 .container {
     max-width: 800px;
-    margin: 50px auto;
+    width: 100%;
     padding: 20px;
     background-color: #fff;
-    border-radius: 15px; /* Закругленные углы */
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    justify-content: center;
+    align-items: center;
 }
 
 h1 {
-    color: #ff69b4; /* Розовый цвет */
+    color: #ff69b4;
     text-align: center;
+    margin-bottom: 20px;
 }
 
-/* Кнопки */
 .btn-add, .btn-edit, .btn-delete {
     display: inline-block;
     padding: 10px 15px;
@@ -33,18 +41,17 @@ h1 {
 }
 
 .btn-add {
-    background-color: #ff69b4; /* Розовый */
+    background-color: #ff69b4;
 }
 
 .btn-edit {
-    background-color: #87ceeb; /* Голубой */
+    background-color: #87ceeb;
 }
 
 .btn-delete {
-    background-color: #ff4500; /* Оранжевый */
+    background-color: #ff4500;
 }
 
-/* Таблица */
 .employee-table {
     width: 100%;
     border-collapse: collapse;
@@ -58,10 +65,17 @@ h1 {
 }
 
 .employee-table th {
-    background-color: #ff69b4; /* Розовый */
+    background-color: #ff69b4;
     color: #fff;
 }
 
 .employee-table tr:hover {
     background-color: #f5f5f5;
+}
+
+.message {
+    text-align: center;
+    color: #6b5b95;
+    font-weight: bold;
+    margin-top: 20px;
 }
