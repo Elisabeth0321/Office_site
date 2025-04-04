@@ -32,7 +32,8 @@ label {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+select {
     width: calc(100% - 40px);
     padding: 0.75rem;
     margin-bottom: 1rem;
@@ -46,7 +47,8 @@ input[type="number"] {
 }
 
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+select:focus {
     border-color: #6b5b95;
 }
 
@@ -63,6 +65,16 @@ input[type="number"]:focus {
     margin-left: 20px;
 }
 
-.btn-add:hover {
+.btn-add:hover,
+.btn-edit:hover {
     background: #6b5b95;
+}
+
+select {
+    appearance: none;
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><polygon points="0,0 20,0 10,10" fill="#6b5b95"/></svg>') no-repeat right 10px center; /* Стрелка */
+    background-size: 10px;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    color: #6b5b95;
 }

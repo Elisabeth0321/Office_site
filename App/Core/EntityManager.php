@@ -23,8 +23,4 @@ class EntityManager {
     public function getConnection(): PDO {
         return $this->connection;
     }
-
-    public function getRepository($entityClass) {
-        return new EmployeeRepository($this, $entityClass);
-    }
 }

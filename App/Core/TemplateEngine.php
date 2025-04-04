@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Core;
 
 class TemplateEngine {
     public function render(string $templatePath, array $data = []): string {

@@ -1,5 +1,17 @@
 RewriteEngine On
+Options -Indexes
+
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+<If "%{REQUEST_URI} =~ m#^/admin/#">
+    AuthType Basic
+    AuthName "Admin Area"
+    AuthUserFile /var/www/office/public/.htpasswd
+    Require valid-user
+</If>
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]
-RewriteCond %{REQUEST_URI} !^/public/

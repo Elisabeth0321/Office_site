@@ -2,61 +2,65 @@
 
 namespace App\Controllers;
 
+use App\Core\TemplateEngine;
+use App\Services\DepartmentService;
 use App\Services\EmployeeService;
-use App\Services\TemplateEngine;
 
-class EmployeeController extends BaseController
+class EmployeeController
 {
     private EmployeeService $employeeService;
+    private DepartmentService $departmentService;
 
-    public function __construct(EmployeeService $employeeService)
+    public function __construct(EmployeeService $employeeService, DepartmentService $departmentService)
     {
         $this->employeeService = $employeeService;
+        $this->departmentService = $departmentService;
     }
 
     public function listAction(): void
     {
         $employees = $this->employeeService->getAllEmployees();
 
-        $templatePath = __DIR__ . '/../Views/employee_list.html';
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_list.html';
         $templateEngine = new TemplateEngine();
         echo $templateEngine->render($templatePath, [
             'employees' => $employees
         ]);
     }
 
-    public function viewAction(): void
+    public function listByDepartmentAction(): void
     {
-        $id = $_GET['id'] ?? null;
-        if (!$id) {
-            echo "ID не указан";
+        $departmentId = $_GET['id'] ?? null;
+        if (!$departmentId) {
+            echo "ID отдела не указан";
             return;
         }
 
-        $employee = $this->employeeService->getEmployeeById($id);
+        $employees = $this->employeeService->getEmployeesByDepartment($departmentId);
+        $department = $this->departmentService->getDepartmentById($departmentId);
 
-        if (!$employee) {
-            echo "Сотрудник не найден";
+        if (!$department) {
+            echo "Отдел не найден";
             return;
         }
 
-        $templatePath = __DIR__ . '/../Views/employee.html';
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_list.html';
         $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, ['employee' => $employee]);
+        echo $templateEngine->render($templatePath, [
+            'employees' => $employees,
+            'department' => $department
+        ]);
     }
 
     public function deleteAction(): void
     {
         $id = $_GET['id'] ?? null;
-        if (!$id) {
-            echo "ID не указан";
-            return;
-        }
+        $departmentId = $_GET['departmentId'] ?? null;
 
         $success = $this->employeeService->deleteEmployee($id);
 
         if ($success) {
-            header('Location: /employees');
+            header("Location: /employees/department?id={$departmentId}");
         } else {
             echo "Ошибка при удалении сотрудника";
         }
@@ -64,9 +68,13 @@ class EmployeeController extends BaseController
 
     public function addFormAction(): void
     {
-        $templatePath = __DIR__ . '/../Views/employee_add_form.html';
+        $departmentId = $_GET['departmentId'] ?? null;
+
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_add_form.html';
         $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath);
+        echo $templateEngine->render($templatePath, [
+            'departmentId' => $departmentId
+        ]);
     }
 
     public function addAction(): void
@@ -74,17 +82,18 @@ class EmployeeController extends BaseController
         $name = $_POST['name'] ?? '';
         $salary = $_POST['salary'] ?? 0;
         $position = $_POST['position'] ?? '';
-        $department = $_POST['department'] ?? '';
+        $departmentId = isset($_POST['departmentId']) ? (int) $_POST['departmentId'] : 0;
 
-        if (empty($name) || empty($position) || empty($department)) {
+        if (empty($name) || empty($position)) {
             echo "Все поля обязательны для заполнения";
             return;
         }
 
-        $success = $this->employeeService->addEmployee($name, $salary, $position, $department);
+        $success = $this->employeeService->addEmployee($name, $salary, $position, $departmentId);
 
         if ($success) {
-            header('Location: /employees');
+            header("Location: /employees/department?id={$departmentId}");
+            exit();
         } else {
             echo "Ошибка при добавлении сотрудника";
         }
@@ -99,15 +108,19 @@ class EmployeeController extends BaseController
         }
 
         $employee = $this->employeeService->getEmployeeById($id);
-
         if (!$employee) {
             echo "Сотрудник не найден";
             return;
         }
 
-        $templatePath = __DIR__ . '/../Views/employee_edit_form.html';
+        $departments = $this->departmentService->getAllDepartments();
+
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_edit_form.html';
         $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, ['employee' => $employee]);
+        echo $templateEngine->render($templatePath, [
+            'employee' => $employee,
+            'departments' => $departments
+        ]);
     }
 
     public function editAction(): void
@@ -127,17 +140,17 @@ class EmployeeController extends BaseController
         $name = $_POST['name'] ?? $existingEmployee->getName();
         $salary = $_POST['salary'] ?? $existingEmployee->getSalary();
         $position = $_POST['position'] ?? $existingEmployee->getPosition();
-        $department = $_POST['department'] ?? $existingEmployee->getDepartment();
+        $departmentId = $_POST['departmentId'] ?? $existingEmployee->getDepartmentId();
 
-        if (empty($name) || empty($position) || empty($department)) {
+        if (empty($name) || empty($position)) {
             echo "Все поля обязательны для заполнения";
             return;
         }
 
-        $success = $this->employeeService->updateEmployee($id, $name, $salary, $position, $department);
+        $success = $this->employeeService->updateEmployee($id, $name, $salary, $position, $departmentId);
 
         if ($success) {
-            header('Location: /employees');
+            header("Location: /employees/department?id={$departmentId}");
         } else {
             echo "Ошибка при обновлении сотрудника";
         }

@@ -843,7 +843,7 @@ final class Mbstring
         if (null === $encoding) {
             $encoding = self::mb_internal_encoding();
         } else {
-            self::assertEncoding($encoding, 'mb_str_pad(): Argument #5 ($encoding) must be a valid encoding, "%s" given');
+            self::assertEncoding($encoding, 'mb_str_pad(): Argument #5.html ($encoding) must be a valid encoding, "%s" given');
         }
 
         if (self::mb_strlen($pad_string, $encoding) <= 0) {

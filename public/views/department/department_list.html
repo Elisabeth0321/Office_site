@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список отделов</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/departments_list.css">
+</head>
+<body>
+<div class="container">
+    <h1>Список отделов</h1>
+    <form action="/departments/add" method="POST">
+        <label for="name">Название нового отдела:</label>
+        <input type="text" id="name" name="name" maxlength="90" required>
+        <button type="submit" class="btn-add">Добавить</button>
+    </form>
+    <table class="department-table">
+        <thead>
+        <tr>
+            <th>Название отдела</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{if !empty($departments)}}
+        {{foreach $departments as $department}}
+        <tr>
+            <td>
+                <a href="/employees/department?id={{ department->id }}" class="department-link">
+                    {{ department->getName() }}
+                </a>
+            </td>
+            <td>
+                <a href="/departments/delete?id={{ department->id }}" class="btn-delete"
+                   onclick="return confirm('Вы уверены?')">Удалить</a>
+            </td>
+        </tr>
+        {{endforeach}}
+        {{else}}
+        <tr>
+            <td colspan="2" class="message">Отделы не найдены.</td>
+        </tr>
+        {{endif}}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

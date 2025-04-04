@@ -22,6 +22,16 @@ class EmployeeRepository
         return $result;
     }
 
+    public function findByDepartment(int $departmentId): array
+    {
+        $stmt = $this->entityManager->getConnection()->prepare(
+            "SELECT * FROM employees WHERE department_id = :departmentId"
+        );
+        $stmt->execute(['departmentId' => $departmentId]);
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Employee::class);
+    }
+
     public function find(int $id): ?Employee
     {
         $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM employees WHERE id = ?");
@@ -37,7 +47,7 @@ class EmployeeRepository
         $employee->name = $data['name'];
         $employee->salary = $data['salary'];
         $employee->position = $data['position'];
-        $employee->department = $data['department'];
+        $employee->departmentId = $data['department_id'];
 
         return $employee;
     }
@@ -45,26 +55,26 @@ class EmployeeRepository
     public function add(Employee $employee): bool
     {
         $stmt = $this->entityManager->getConnection()->prepare(
-            "INSERT INTO employees (name, salary, position, department) VALUES (?, ?, ?, ?)"
+            "INSERT INTO employees (name, salary, position, department_id) VALUES (?, ?, ?, ?)"
         );
         return $stmt->execute([
             $employee->getName(),
             $employee->getSalary(),
             $employee->getPosition(),
-            $employee->getDepartment()
+            $employee->getDepartmentId()
         ]);
     }
 
     public function update(Employee $employee): bool
     {
         $stmt = $this->entityManager->getConnection()->prepare(
-            "UPDATE employees SET name = ?, salary = ?, position = ?, department = ? WHERE id = ?"
+            "UPDATE employees SET name = ?, salary = ?, position = ?, department_id = ? WHERE id = ?"
         );
         return $stmt->execute([
             $employee->getName(),
             $employee->getSalary(),
             $employee->getPosition(),
-            $employee->getDepartment(),
+            $employee->getDepartmentId(),
             $employee->id
         ]);
     }

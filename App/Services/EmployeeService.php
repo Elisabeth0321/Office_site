@@ -19,6 +19,11 @@ class EmployeeService
         return $this->employeeRepository->findAll();
     }
 
+    public function getEmployeesByDepartment(int $departmentId): array
+    {
+        return $this->employeeRepository->findByDepartment($departmentId);
+    }
+
     public function getEmployeeById(int $id): ?Employee
     {
         return $this->employeeRepository->find($id);
@@ -29,25 +34,25 @@ class EmployeeService
         return $this->employeeRepository->delete($id);
     }
 
-    public function addEmployee(string $name, float $salary, string $position, string $department): bool
+    public function addEmployee(string $name, float $salary, string $position, int $departmentId): bool
     {
         $employee = new Employee();
         $employee->id = null;
         $employee->name = $name;
         $employee->salary = $salary;
         $employee->position = $position;
-        $employee->department = $department;
+        $employee->departmentId = $departmentId;
         return $this->employeeRepository->add($employee);
     }
 
-    public function updateEmployee(int $id, string $name, float $salary, string $position, string $department): bool
+    public function updateEmployee(int $id, string $name, float $salary, string $position, string $departmentId): bool
     {
         $employee = new Employee();
         $employee->id = $id;
         $employee->name = $name;
         $employee->salary = $salary;
         $employee->position = $position;
-        $employee->department = $department;
+        $employee->departmentId = $departmentId;
         return $this->employeeRepository->update($employee);
     }
 }

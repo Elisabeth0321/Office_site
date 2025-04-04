@@ -8,25 +8,30 @@ class Employee
     public $name;
     public $salary;
     public $position;
-    public $department;
+    public $departmentId;
 
-    public function __construct() {
+    public function __construct()
+    {
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function getPosition(): string {
+    public function getPosition(): string
+    {
         return $this->position;
     }
 
-    public function getSalary(): float {
+    public function getSalary(): float
+    {
         return $this->salary;
     }
 
-    public function getDepartment(): string {
-        return $this->department;
+    public function getDepartmentId(): int
+    {
+        return $this->departmentId;
     }
 
     public function setName(string $name): void
@@ -44,9 +49,9 @@ class Employee
         $this->salary = $salary;
     }
 
-    public function setDepartment(string $department): void
+    public function setDepartment(id $departmentId): void
     {
-        $this->department = $department;
+        $this->departmentId = $departmentId;
     }
 
 }

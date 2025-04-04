@@ -3,13 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список сотрудников</title>
-    <link rel="stylesheet" type="text/css" href="/css/main.css?">
+    <title>{{ department->getName() }}</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/employees_list.css">
 </head>
 <body>
+<a href="/departments" class="btn-back">
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><polygon points='10,0 0,10 10,20' fill='%23fff'/></svg>"
+         class="back-icon" alt="Назад">
+    Назад
+</a>
+
 <div class="container">
-    <h1>Список сотрудников</h1>
-    <a href="/employees/add-form" class="btn-add">Добавить сотрудника</a>
+    <h1>{{ department->getName() }}</h1>
+    <a href="/employees/add-form?departmentId={{ department->id }}" class="btn-add">Добавить сотрудника</a>
 
     <table class="employee-table">
         <thead>
@@ -17,10 +23,10 @@
             <th>Имя</th>
             <th>Зарплата</th>
             <th>Должность</th>
-            <th>Департамент</th>
             <th></th>
         </tr>
         </thead>
+
         <tbody>
         {{if !empty($employees)}}
         {{foreach $employees as $employee}}
@@ -28,10 +34,10 @@
             <td>{{ employee->getName() }}</td>
             <td>{{ employee->getSalary() }}</td>
             <td>{{ employee->getPosition() }}</td>
-            <td>{{ employee->getDepartment() }}</td>
             <td>
                 <a href="/employees/edit-form?id={{ employee->id }}" class="btn-edit">Редактировать</a>
-                <a href="/employees/delete?id={{ employee->id }}" class="btn-delete" onclick="return confirm('Вы уверены?')">Удалить</a>
+                <a href="/employees/delete?id={{ employee->id }}&departmentId={{ department->id }}" class="btn-delete"
+                   onclick="return confirm('Вы уверены?')">Удалить</a>
             </td>
         </tr>
         {{endforeach}}

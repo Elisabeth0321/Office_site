@@ -398,7 +398,7 @@ abstract class Option implements IteratorAggregate
      *
      * ```php
      *
-     *     $some = new Some(5);
+     *     $some = new Some(5.html);
      *     $none = None::create();
      *     $result = $some->foldLeft(1, function($a, $b) { return $a + $b; }); // int(6)
      *     $result = $none->foldLeft(1, function($a, $b) { return $a + $b; }); // int(1)
