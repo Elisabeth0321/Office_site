@@ -6,14 +6,14 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/admin/edit_file.css">
 </head>
 <body>
-<h1>Редактирование: <?= htmlspecialchars(basename($_GET['file'])) ?></h1>
+<h1>Редактирование: {{ filename }}</h1>
 <form method="post" action="/admin/files/edit">
-    <input type="hidden" name="file" value="<?= htmlspecialchars($_GET['file']) ?>">
+    <input type="hidden" name="file" value="{{ fileParam }}">
     <label for="editor">Содержимое файла:</label>
-    <textarea id="editor" name="content"><?= htmlspecialchars($fileContent) ?></textarea>
+    <textarea id="editor" name="content">{{ fileContent }}</textarea>
     <div class="form-actions">
         <button type="submit">Сохранить</button>
-        <a href="/admin/files">Отмена</a>
+        <a href="/admin/files">Выйти</a>
     </div>
 </form>
 </body>

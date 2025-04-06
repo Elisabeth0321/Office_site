@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\TemplateEngine;
 use App\Services\AdminService;
 
 class AdminController
@@ -16,15 +17,25 @@ class AdminController
     public function indexAction(): void
     {
         $relativePath = $_GET['path'] ?? '';
-        $files = $this->adminService->listFiles($relativePath);
-        $currentPath = $relativePath;
-        include __DIR__ . '/../../public/views/admin/file_manager.php';
+        $templatePath = __DIR__ . '/../../public/views/admin/file_manager.html';
+        $templateEngine = new TemplateEngine();
+
+        $viewData = $this->adminService->getFileListViewData($relativePath);
+
+        echo $templateEngine->render($templatePath, $viewData);
     }
 
     public function uploadAction(): void
     {
         $relativePath = $_GET['path'] ?? '';
         $this->adminService->uploadFile($_FILES, $relativePath);
+        header("Location: /admin/files?path=" . urlencode($relativePath));
+    }
+
+    public function createDirectoryAction(): void
+    {
+        $relativePath = $_GET['path'] ?? '';
+        $this->adminService->createDirectory($_POST['directory'], $relativePath);
         header("Location: /admin/files?path=" . urlencode($relativePath));
     }
 
@@ -41,29 +52,23 @@ class AdminController
 
     public function editAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/admin/edit_file.html';
+        $templateEngine = new TemplateEngine();
+
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $relativePath = $_GET['file'] ?? '';
-            $fullPath = $this->adminService->getFullPath($relativePath);
-
-            $fileContent = $this->adminService->getFileContent($relativePath);
-            include __DIR__ . '/../../public/views/admin/edit_file.php';
+            $viewData = $this->adminService->getEditFileViewData($relativePath);
+            echo $templateEngine->render($templatePath, $viewData);
         } else {
             try {
                 $this->adminService->editFile($_POST['file'], $_POST['content']);
                 $_SESSION['success'] = "Файл успешно сохранён";
-                header("Location: /admin/files");
-                exit;
             } catch (\Exception $e) {
                 $_SESSION['error'] = $e->getMessage();
-                header("Location: " . $_SERVER['HTTP_REFERER'] ?? '/admin/files');
-                exit;
             }
-        }
-    }
 
-    public function createDirectoryAction(): void
-    {
-        $this->adminService->createDirectory($_POST['directory']);
-        header("Location: /admin/files");
+            header("Location: " . ($_SERVER['HTTP_REFERER'] ?? '/admin/files'));
+            exit;
+        }
     }
 }

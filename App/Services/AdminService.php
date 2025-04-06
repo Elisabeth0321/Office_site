@@ -15,6 +15,33 @@ class AdminService
         }
     }
 
+    public function getFileListViewData(string $relativePath): array
+    {
+        $rawFiles = $this->listFiles($relativePath);
+
+        $files = array_map(function ($file) use ($relativePath) {
+            $fullPath = $relativePath ? $relativePath . '/' . $file : $file;
+            $isDir = is_dir($this->getFullPath($fullPath));
+
+            return [
+                'name' => $file,
+                'fullPath' => $fullPath,
+                'isDir' => $isDir,
+                'url' => urlencode($fullPath),
+                'class' => $isDir ? 'dir-item' : 'file-item'
+            ];
+        }, $rawFiles);
+
+        $backPath = $relativePath && $relativePath !== 'public' ? urlencode(dirname($relativePath)) : null;
+
+        return [
+            'files' => $files,
+            'currentPath' => $relativePath,
+            'currentPathEncoded' => urlencode($relativePath),
+            'backPath' => $backPath,
+        ];
+    }
+
     public function listFiles(string $relativePath = ''): array
     {
         $path = $this->sanitizePath($relativePath);
@@ -52,10 +79,23 @@ class AdminService
         }
 
         $targetDir = $this->sanitizePath($relativePath);
-        $destination = $relativePath . basename($file['file']['name']);
+        $destination = $targetDir . basename($file['file']['name']);
 
         if (!move_uploaded_file($file['file']['tmp_name'], $destination)) {
             throw new \Exception("Ошибка при сохранении файла");
+        }
+    }
+
+    public function createDirectory(string $directoryName, string $relativePath): void
+    {
+        $basePath = $this->sanitizePath($relativePath);
+        $directoryName = basename($directoryName);
+        $dirPath = $basePath . DIRECTORY_SEPARATOR . $directoryName;
+
+        if (!is_dir($dirPath)) {
+            if (!mkdir($dirPath, 0777, true) && !is_dir($dirPath)) {
+                throw new \RuntimeException(sprintf('Directory "%s" could not be created', $dirPath));
+            }
         }
     }
 
@@ -75,17 +115,6 @@ class AdminService
         } else {
             throw new \Exception("Файл не найден");
         }
-    }
-
-    public function createDirectory(string $relativePath): void
-    {
-        $dirPath = $this->sanitizePath($relativePath);
-
-        if (!is_dir($dirPath)) {
-            mkdir($dirPath, 0777, true);
-        }
-
-        chmod($relativePath, 0755);
     }
 
     private function deleteDirectory(string $dir): void
@@ -124,6 +153,17 @@ class AdminService
                 throw new \Exception("Failed to delete file: " . $filename);
             }
         }
+    }
+
+    public function getEditFileViewData(string $relativePath): array
+    {
+        $content = $this->getFileContent($relativePath);
+
+        return [
+            'fileContent' => $content,
+            'filename' => basename($relativePath),
+            'fileParam' => $relativePath,
+        ];
     }
 
     public function editFile(string $relativePath, string $content): void
