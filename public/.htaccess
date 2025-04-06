@@ -5,7 +5,7 @@ Options -Indexes
     Require all denied
 </FilesMatch>
 
-<If "%{REQUEST_URI} =~ m#^/admin/#">
+<If "%{REQUEST_URI} =~ m#^/admin#">
     AuthType Basic
     AuthName "Admin Area"
     AuthUserFile /var/www/office/public/.htpasswd
