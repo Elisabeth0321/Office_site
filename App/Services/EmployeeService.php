@@ -1,9 +1,9 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Services;
 
 use App\Models\Employee;
-use App\Models\Department;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\DepartmentRepository;
 
@@ -69,7 +69,6 @@ class EmployeeService
         string $position,
         int $departmentId
     ): bool {
-        // Загружаем Department по ID
         $department = $this->departmentRepository->find($departmentId);
         if (!$department) {
             throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");

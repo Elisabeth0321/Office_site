@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Services;
 
@@ -35,13 +36,5 @@ class DepartmentService
         $department->setId(0);
         $department->setName($name);
         return $this->departmentRepository->add($department);
-    }
-
-    public function updateDepartment(int $id, string $name): bool
-    {
-        $department = new Department();
-        $department->setId($id);
-        $department->setName($name);
-        return $this->departmentRepository->update($department);
     }
 }

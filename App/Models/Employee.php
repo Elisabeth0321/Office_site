@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -68,9 +69,6 @@ class Employee
         $this->department = $department;
     }
 
-    /**
-     * Удобный метод, если нужен только ID департамента
-     */
     public function getDepartmentId(): ?int
     {
         return $this->department?->getId();

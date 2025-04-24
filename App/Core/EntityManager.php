@@ -1,8 +1,8 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Core;
 
-use App\Repositories\EmployeeRepository;
 use PDO;
 use PDOException;
 

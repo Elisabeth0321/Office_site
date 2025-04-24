@@ -1,10 +1,10 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Repositories;
 
 use App\Core\EntityManager;
 use App\Models\Employee;
-use App\Models\Department;
 use PDO;
 
 class EmployeeRepository
@@ -110,7 +110,6 @@ class EmployeeRepository
         $employee->setSalary((float)$data['salary']);
         $employee->setPosition((string)$data['position']);
 
-        // загружаем объект Department
         $department = $this->departmentRepo->find((int)$data['department_id']);
         if ($department !== null) {
             $employee->setDepartment($department);
