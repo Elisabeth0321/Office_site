@@ -26,12 +26,12 @@
         {{foreach $departments as $department}}
         <tr>
             <td>
-                <a href="/employees/department?id={{ department->id }}" class="department-link">
+                <a href="/employees/department?id={{ department->getId() }}" class="department-link">
                     {{ department->getName() }}
                 </a>
             </td>
             <td>
-                <a href="/departments/delete?id={{ department->id }}" class="btn-delete"
+                <a href="/departments/delete?id={{ department->getId() }}" class="btn-delete"
                    onclick="return confirm('Вы уверены?')">Удалить</a>
             </td>
         </tr>

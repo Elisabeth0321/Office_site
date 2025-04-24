@@ -33,8 +33,8 @@ class DepartmentRepository
         }
 
         $department = new Department();
-        $department->id = $data['id'];
-        $department->name = $data['name'];
+        $department->setId($data['id']);
+        $department->setName($data['name']);
 
         return $department;
     }
@@ -56,7 +56,7 @@ class DepartmentRepository
         );
         return $stmt->execute([
             $department->getName(),
-            $department->id
+            $department->getId()
         ]);
     }
 

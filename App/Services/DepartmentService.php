@@ -32,16 +32,16 @@ class DepartmentService
     public function addDepartment(string $name): bool
     {
         $department = new Department();
-        $department->id = null;
-        $department->name = $name;
+        $department->setId(0);
+        $department->setName($name);
         return $this->departmentRepository->add($department);
     }
 
     public function updateDepartment(int $id, string $name): bool
     {
         $department = new Department();
-        $department->id = $id;
-        $department->name = $name;
+        $department->setId($id);
+        $department->setName($name);
         return $this->departmentRepository->update($department);
     }
 }

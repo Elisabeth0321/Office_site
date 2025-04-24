@@ -15,7 +15,7 @@
 
 <div class="container">
     <h1>{{ department->getName() }}</h1>
-    <a href="/employees/add-form?departmentId={{ department->id }}" class="btn-add">Добавить сотрудника</a>
+    <a href="/employees/add-form?departmentId={{ department->getId() }}" class="btn-add">Добавить сотрудника</a>
 
     <table class="employee-table">
         <thead>
@@ -35,8 +35,8 @@
             <td>{{ employee->getSalary() }}</td>
             <td>{{ employee->getPosition() }}</td>
             <td>
-                <a href="/employees/edit-form?id={{ employee->id }}" class="btn-edit">Редактировать</a>
-                <a href="/employees/delete?id={{ employee->id }}&departmentId={{ department->id }}" class="btn-delete"
+                <a href="/employees/edit-form?id={{ employee->getId() }}" class="btn-edit">Редактировать</a>
+                <a href="/employees/delete?id={{ employee->getId() }}&departmentId={{ department->getId() }}" class="btn-delete"
                    onclick="return confirm('Вы уверены?')">Удалить</a>
             </td>
         </tr>

@@ -43,11 +43,11 @@ class EmployeeRepository
         }
 
         $employee = new Employee();
-        $employee->id = $data['id'];
-        $employee->name = $data['name'];
-        $employee->salary = $data['salary'];
-        $employee->position = $data['position'];
-        $employee->departmentId = $data['department_id'];
+        $employee->setId($data['id']);
+        $employee->setName($data['name']);
+        $employee->setSalary($data['salary']);
+        $employee->setPosition($data['position']);
+        $employee->setDepartmentId($data['department_id']);
 
         return $employee;
     }
@@ -75,7 +75,7 @@ class EmployeeRepository
             $employee->getSalary(),
             $employee->getPosition(),
             $employee->getDepartmentId(),
-            $employee->id
+            $employee->getId()
         ]);
     }
 

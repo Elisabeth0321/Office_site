@@ -4,14 +4,20 @@ namespace App\Models;
 
 class Employee
 {
-    public $id;
-    public $name;
-    public $salary;
-    public $position;
-    public $departmentId;
+    private int $id;
+    private string $name;
+    private float $salary;
+    private string $position;
+    private int $departmentId;
+    private Department $department;
 
     public function __construct()
     {
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getName(): string
@@ -34,6 +40,11 @@ class Employee
         return $this->departmentId;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function setName(string $name): void
     {
         $this->name = $name;
@@ -49,7 +60,7 @@ class Employee
         $this->salary = $salary;
     }
 
-    public function setDepartment(id $departmentId): void
+    public function setDepartmentId(int $departmentId): void
     {
         $this->departmentId = $departmentId;
     }

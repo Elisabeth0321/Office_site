@@ -37,22 +37,22 @@ class EmployeeService
     public function addEmployee(string $name, float $salary, string $position, int $departmentId): bool
     {
         $employee = new Employee();
-        $employee->id = null;
-        $employee->name = $name;
-        $employee->salary = $salary;
-        $employee->position = $position;
-        $employee->departmentId = $departmentId;
+        $employee->setId(0);
+        $employee->setName($name);
+        $employee->setSalary($salary);
+        $employee->setPosition($$position);
+        $employee->setDepartmentId($departmentId);
         return $this->employeeRepository->add($employee);
     }
 
     public function updateEmployee(int $id, string $name, float $salary, string $position, string $departmentId): bool
     {
         $employee = new Employee();
-        $employee->id = $id;
-        $employee->name = $name;
-        $employee->salary = $salary;
-        $employee->position = $position;
-        $employee->departmentId = $departmentId;
+        $employee->setId($id);
+        $employee->setName($name);
+        $employee->setSalary($salary);
+        $employee->setPosition($position);
+        $employee->setDepartmentId($departmentId);
         return $this->employeeRepository->update($employee);
     }
 }
