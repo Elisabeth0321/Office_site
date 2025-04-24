@@ -3,15 +3,21 @@
 namespace App\Services;
 
 use App\Models\Employee;
+use App\Models\Department;
 use App\Repositories\EmployeeRepository;
+use App\Repositories\DepartmentRepository;
 
 class EmployeeService
 {
     private EmployeeRepository $employeeRepository;
+    private DepartmentRepository $departmentRepository;
 
-    public function __construct(EmployeeRepository $employeeRepository)
-    {
-        $this->employeeRepository = $employeeRepository;
+    public function __construct(
+        EmployeeRepository $employeeRepository,
+        DepartmentRepository $departmentRepository
+    ) {
+        $this->employeeRepository   = $employeeRepository;
+        $this->departmentRepository = $departmentRepository;
     }
 
     public function getAllEmployees(): array
@@ -34,25 +40,48 @@ class EmployeeService
         return $this->employeeRepository->delete($id);
     }
 
-    public function addEmployee(string $name, float $salary, string $position, int $departmentId): bool
-    {
+    public function addEmployee(
+        string $name,
+        float $salary,
+        string $position,
+        int $departmentId
+    ): bool {
+        // Загружаем Department по ID
+        $department = $this->departmentRepository->find($departmentId);
+        if (!$department) {
+            throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
+        }
+
         $employee = new Employee();
         $employee->setId(0);
         $employee->setName($name);
         $employee->setSalary($salary);
-        $employee->setPosition($$position);
-        $employee->setDepartmentId($departmentId);
+        $employee->setPosition($position);
+        $employee->setDepartment($department);
+
         return $this->employeeRepository->add($employee);
     }
 
-    public function updateEmployee(int $id, string $name, float $salary, string $position, string $departmentId): bool
-    {
+    public function updateEmployee(
+        int $id,
+        string $name,
+        float $salary,
+        string $position,
+        int $departmentId
+    ): bool {
+        // Загружаем Department по ID
+        $department = $this->departmentRepository->find($departmentId);
+        if (!$department) {
+            throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
+        }
+
         $employee = new Employee();
         $employee->setId($id);
         $employee->setName($name);
         $employee->setSalary($salary);
         $employee->setPosition($position);
-        $employee->setDepartmentId($departmentId);
+        $employee->setDepartment($department);
+
         return $this->employeeRepository->update($employee);
     }
 }

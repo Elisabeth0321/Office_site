@@ -10,149 +10,150 @@ class EmployeeController
 {
     private EmployeeService $employeeService;
     private DepartmentService $departmentService;
+    private TemplateEngine $templateEngine;
 
-    public function __construct(EmployeeService $employeeService, DepartmentService $departmentService)
-    {
-        $this->employeeService = $employeeService;
+    public function __construct(
+        EmployeeService $employeeService,
+        DepartmentService $departmentService
+    ) {
+        $this->employeeService   = $employeeService;
         $this->departmentService = $departmentService;
+        $this->templateEngine    = new TemplateEngine();
     }
 
     public function listAction(): void
     {
         $employees = $this->employeeService->getAllEmployees();
 
-        $templatePath = __DIR__ . '/../../public/views/employee/employee_list.html';
-        $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, [
-            'employees' => $employees
-        ]);
+        echo $this->templateEngine->render(
+            __DIR__ . '/../../public/views/employee/employee_list.html',
+            ['employees' => $employees]
+        );
     }
 
     public function listByDepartmentAction(): void
     {
-        $departmentId = $_GET['id'] ?? null;
-        if (!$departmentId) {
+        $deptId = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        if (!$deptId) {
             echo "ID отдела не указан";
             return;
         }
 
-        $employees = $this->employeeService->getEmployeesByDepartment($departmentId);
-        $department = $this->departmentService->getDepartmentById($departmentId);
-
+        $department = $this->departmentService->getDepartmentById($deptId);
         if (!$department) {
             echo "Отдел не найден";
             return;
         }
 
-        $templatePath = __DIR__ . '/../../public/views/employee/employee_list.html';
-        $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, [
-            'employees' => $employees,
-            'department' => $department
-        ]);
+        $employees = $this->employeeService->getEmployeesByDepartment($deptId);
+
+        echo $this->templateEngine->render(
+            __DIR__ . '/../../public/views/employee/employee_list.html',
+            [
+                'department' => $department,
+                'employees'  => $employees,
+            ]
+        );
     }
 
     public function deleteAction(): void
     {
-        $id = $_GET['id'] ?? null;
-        $departmentId = $_GET['departmentId'] ?? null;
-
-        $success = $this->employeeService->deleteEmployee($id);
-
-        if ($success) {
-            header("Location: /employees/department?id={$departmentId}");
-        } else {
-            echo "Ошибка при удалении сотрудника";
+        $id         = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        $deptId     = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
+        if (!$id) {
+            echo "ID сотрудника не указан";
+            return;
         }
+
+        $this->employeeService->deleteEmployee($id);
+        header("Location: /employees/department?id={$deptId}");
+        exit();
     }
 
     public function addFormAction(): void
     {
-        $departmentId = $_GET['departmentId'] ?? null;
+        $departmentId = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
+        if ($departmentId === null) {
+            echo "ID отдела не указан";
+            return;
+        }
 
-        $templatePath = __DIR__ . '/../../public/views/employee/employee_add_form.html';
-        $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, [
-            'departmentId' => $departmentId
-        ]);
+        echo $this->templateEngine->render(
+            __DIR__ . '/../../public/views/employee/employee_add_form.html',
+            ['departmentId' => $departmentId]
+        );
     }
 
     public function addAction(): void
     {
-        $name = $_POST['name'] ?? '';
-        $salary = $_POST['salary'] ?? 0;
+        $name     = $_POST['name'] ?? '';
+        $salary   = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
         $position = $_POST['position'] ?? '';
-        $departmentId = isset($_POST['departmentId']) ? (int) $_POST['departmentId'] : 0;
+        $deptId   = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
 
-        if (empty($name) || empty($position)) {
+        if ($name === '' || $position === '') {
             echo "Все поля обязательны для заполнения";
             return;
         }
 
-        $success = $this->employeeService->addEmployee($name, $salary, $position, $departmentId);
-
-        if ($success) {
-            header("Location: /employees/department?id={$departmentId}");
+        try {
+            $this->employeeService->addEmployee($name, $salary, $position, $deptId);
+            header("Location: /employees/department?id={$deptId}");
             exit();
-        } else {
-            echo "Ошибка при добавлении сотрудника";
+        } catch (\InvalidArgumentException $e) {
+            echo $e->getMessage();
         }
     }
 
     public function editFormAction(): void
     {
-        $id = $_GET['id'] ?? null;
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$id) {
             echo "ID не указан";
             return;
         }
 
-        $employee = $this->employeeService->getEmployeeById($id);
+        $employee    = $this->employeeService->getEmployeeById($id);
+        $departments = $this->departmentService->getAllDepartments();
+
         if (!$employee) {
             echo "Сотрудник не найден";
             return;
         }
 
-        $departments = $this->departmentService->getAllDepartments();
-
-        $templatePath = __DIR__ . '/../../public/views/employee/employee_edit_form.html';
-        $templateEngine = new TemplateEngine();
-        echo $templateEngine->render($templatePath, [
-            'employee' => $employee,
-            'departments' => $departments
-        ]);
+        echo $this->templateEngine->render(
+            __DIR__ . '/../../public/views/employee/employee_edit_form.html',
+            [
+                'employee'    => $employee,
+                'departments' => $departments,
+            ]
+        );
     }
 
     public function editAction(): void
     {
-        $id = $_POST['id'] ?? null;
+        $id = isset($_POST['id']) ? (int)$_POST['id'] : null;
         if (!$id) {
             echo "ID не указан";
             return;
         }
 
-        $existingEmployee = $this->employeeService->getEmployeeById($id);
-        if (!$existingEmployee) {
-            echo "Сотрудник не найден";
-            return;
-        }
+        $name       = $_POST['name'] ?? '';
+        $salary     = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
+        $position   = $_POST['position'] ?? '';
+        $deptId     = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
 
-        $name = $_POST['name'] ?? $existingEmployee->getName();
-        $salary = $_POST['salary'] ?? $existingEmployee->getSalary();
-        $position = $_POST['position'] ?? $existingEmployee->getPosition();
-        $departmentId = $_POST['departmentId'] ?? $existingEmployee->getDepartmentId();
-
-        if (empty($name) || empty($position)) {
+        if ($name === '' || $position === '') {
             echo "Все поля обязательны для заполнения";
             return;
         }
 
-        $success = $this->employeeService->updateEmployee($id, $name, $salary, $position, $departmentId);
-
-        if ($success) {
-            header("Location: /employees/department?id={$departmentId}");
-        } else {
-            echo "Ошибка при обновлении сотрудника";
+        try {
+            $this->employeeService->updateEmployee($id, $name, $salary, $position, $deptId);
+            header("Location: /employees/department?id={$deptId}");
+            exit();
+        } catch (\InvalidArgumentException $e) {
+            echo $e->getMessage();
         }
     }
 }

@@ -67,10 +67,10 @@ class Router
     {
         switch ($controllerClass) {
             case EmployeeController::class:
-                $employeeRepository = new EmployeeRepository($this->entityManager);
-                $employeeService = new EmployeeService($employeeRepository);
                 $departmentRepository = new DepartmentRepository($this->entityManager);
                 $departmentService = new DepartmentService($departmentRepository);
+                $employeeRepository = new EmployeeRepository($this->entityManager);
+                $employeeService = new EmployeeService($employeeRepository, $departmentRepository);
                 return new EmployeeController($employeeService, $departmentService);
 
             case DepartmentController::class:

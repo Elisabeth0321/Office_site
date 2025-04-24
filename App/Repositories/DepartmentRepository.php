@@ -18,13 +18,23 @@ class DepartmentRepository
     public function findAll(): array
     {
         $stmt = $this->entityManager->getConnection()->query("SELECT * FROM departments");
-        $result = $stmt->fetchAll(PDO::FETCH_CLASS, Department::class);
-        return $result;
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $departments = [];
+        foreach ($rows as $data) {
+            $dept = new Department();
+            $dept->setId((int)$data['id']);
+            $dept->setName((string)$data['name']);
+            $departments[] = $dept;
+        }
+
+        return $departments;
     }
 
     public function find(int $id): ?Department
     {
-        $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM departments WHERE id = ?");
+        $stmt = $this->entityManager->getConnection()
+            ->prepare("SELECT * FROM departments WHERE id = ?");
         $stmt->execute([$id]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -33,36 +43,33 @@ class DepartmentRepository
         }
 
         $department = new Department();
-        $department->setId($data['id']);
-        $department->setName($data['name']);
+        $department->setId((int)$data['id']);
+        $department->setName((string)$data['name']);
 
         return $department;
     }
 
     public function add(Department $department): bool
     {
-        $stmt = $this->entityManager->getConnection()->prepare(
-            "INSERT INTO departments (name) VALUES (?)"
-        );
-        return $stmt->execute([
-            $department->getName(),
-        ]);
+        $stmt = $this->entityManager->getConnection()
+            ->prepare("INSERT INTO departments (name) VALUES (?)");
+        return $stmt->execute([$department->getName()]);
     }
 
     public function update(Department $department): bool
     {
-        $stmt = $this->entityManager->getConnection()->prepare(
-            "UPDATE departments SET name = ? WHERE id = ?"
-        );
+        $stmt = $this->entityManager->getConnection()
+            ->prepare("UPDATE departments SET name = ? WHERE id = ?");
         return $stmt->execute([
             $department->getName(),
-            $department->getId()
+            $department->getId(),
         ]);
     }
 
     public function delete(int $id): bool
     {
-        $stmt = $this->entityManager->getConnection()->prepare("DELETE FROM departments WHERE id = ?");
+        $stmt = $this->entityManager->getConnection()
+            ->prepare("DELETE FROM departments WHERE id = ?");
         return $stmt->execute([$id]);
     }
 }
