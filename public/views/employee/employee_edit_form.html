@@ -17,7 +17,7 @@
         <input type="text" id="name" name="name" value="{{ employee->getName() }}" required>
 
         <label for="salary">Зарплата:</label>
-        <input type="number" id="salary" name="salary" value="{{ employee->getSalary() }}" required>
+        <input type="number" id="salary" name="salary" value="{{ employee->getSalary() }}" required min="0.01" step="0.01">
 
         <label for="position">Должность:</label>
         <input type="text" id="position" name="position" value="{{ employee->getPosition() }}" required>
