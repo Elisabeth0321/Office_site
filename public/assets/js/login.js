@@ -42,11 +42,9 @@ class LoginForm {
             return;
         }
 
-        const hashed = await this.hash(`${email}:${password}`);
-
         const payload = {
             email,
-            loginHash: hashed,
+            password,
             rememberMe,
             captcha: captchaToken
         };

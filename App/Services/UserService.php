@@ -10,26 +10,99 @@ use DateTimeImmutable;
 class UserService
 {
     private UserRepository $userRepository;
+    private MailService $mailService;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, MailService $mailService)
     {
         $this->userRepository = $userRepository;
+        $this->mailService = $mailService;
     }
 
-    public function register(string $firstname, string $lastname, string $email, string $clientSideHash, string $salt): bool
+    public function processRegistration(array $input): array
+    {
+        $firstname = trim($input['firstname'] ?? '');
+        $lastname = trim($input['lastname'] ?? '');
+        $email = trim($input['email'] ?? '');
+        $password = $input['password'] ?? '';
+        $captcha = $input['captcha'] ?? '';
+
+        if (!$firstname || !$email || !$password || !$captcha) {
+            return ['status' => 400, 'message' => 'Все поля обязательны.'];
+        }
+
+        if (!$this->verifyCaptcha($captcha)) {
+            return ['status' => 400, 'message' => 'Ошибка проверки капчи.'];
+        }
+
+        $salt = bin2hex(random_bytes(16));
+        $hashedPassword = hash('sha256', $password . $salt);
+
+        $success = $this->register($firstname, $lastname, $email, $hashedPassword, $salt);
+
+        if (!$success) {
+            return ['status' => 409, 'message' => 'Пользователь уже существует'];
+        }
+
+        $user = $this->findByEmail($email);
+        if ($user) {
+            $this->sendVerificationEmail($user, $this->mailService);
+        }
+
+        return ['status' => 200, 'message' => 'Успешная регистрация'];
+    }
+
+    public function processLogin(array $input): array
+    {
+        $email = trim($input['email'] ?? '');
+        $password = $input['password'] ?? '';
+        $captcha = $input['captcha'] ?? '';
+
+        if (!$email || !$password || !$captcha) {
+            return ['status' => 400, 'message' => 'Не все поля заполнены'];
+        }
+
+        if (!$this->verifyCaptcha($captcha)) {
+            return ['status' => 400, 'message' => 'Ошибка проверки капчи'];
+        }
+
+        $user = $this->findByEmail($email);
+        if (!$user) {
+            return ['status' => 401, 'message' => 'Пользователь не найден'];
+        }
+
+        $salt = $user->getSalt();
+        $hashedPassword = hash('sha256', $password . $salt);
+
+        if ($hashedPassword !== $user->getPassword()) {
+            return ['status' => 401, 'message' => 'Неверный пароль'];
+        }
+
+        $_SESSION['user_id'] = $user->getId();
+
+        return ['status' => 200, 'message' => 'Успешная авторизация'];
+    }
+
+    private function verifyCaptcha(string $token): bool
+    {
+        $secretKey = '6LccZjArAAAAAEIYKtf7Z0RzQcSOQ4Zi90v-rH0A';
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $result = json_decode($verify, true);
+
+        return $result['success'] ?? false;
+    }
+
+    private function register(string $firstname, string $lastname, string $email, string $passwordHash, string $salt): bool
     {
         if ($this->userRepository->findByEmail($email)) {
             return false;
         }
-
-        $finalHash = hash('sha256', $clientSideHash);
 
         $user = new User(
             0,
             $firstname,
             $lastname,
             $email,
-            $finalHash,
+            $passwordHash,
             $salt,
             '',
             null,
@@ -39,7 +112,7 @@ class UserService
         return $this->userRepository->add($user);
     }
 
-    public function authenticate(string $email, string $clientSideHash): ?User
+    private function authenticate(string $email, string $clientSideHash): ?User
     {
         $user = $this->userRepository->findByEmail($email);
         if (!$user) return null;
@@ -54,7 +127,7 @@ class UserService
         return $user;
     }
 
-    public function storeRememberToken(User $user, string $token): void
+    private function storeRememberToken(User $user, string $token): void
     {
         $user->setToken($token);
         $this->userRepository->update($user);
@@ -84,7 +157,7 @@ class UserService
         $this->userRepository->updateLoginData($userId, $token);
     }
 
-    public function sendVerificationEmail(User $user, MailService $mailer): void
+    private function sendVerificationEmail(User $user, MailService $mailer): void
     {
         $token = bin2hex(random_bytes(32));
         $user->setToken($token);
@@ -109,7 +182,7 @@ class UserService
         return $this->userRepository->update($user);
     }
 
-    public function sendLoginNotification(User $user, MailService $mailer): void
+    private function sendLoginNotification(User $user, MailService $mailer): void
     {
         $subject = "Вы вошли в аккаунт";
         $body = "Здравствуйте, {$user->getFirstname()}!<br><br>

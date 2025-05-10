@@ -13,7 +13,6 @@ class MainController
     public function __construct()
     {
         $this->templateEngine = new TemplateEngine();
-        session_start();
     }
 
     public function mainPageAction(): void

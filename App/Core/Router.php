@@ -30,9 +30,9 @@ class Router
         $this->routes = [
             '/office-manager' => ['App\Controllers\MainController', 'mainPageAction'],
 
-            '/verify-email' => ['App\Controllers\AuthController', 'verifyEmailAction'],
             '/register-form' => ['App\Controllers\AuthController', 'registerFormAction'],
             '/register' => ['App\Controllers\AuthController', 'registerAction'],
+            '/verify-email' => ['App\Controllers\AuthController', 'verifyEmailAction'],
             '/login-form' => ['App\Controllers\AuthController', 'loginFormAction'],
             '/login' => ['App\Controllers\AuthController', 'loginAction'],
             '/logout' => ['App\Controllers\AuthController', 'logoutAction'],
@@ -87,8 +87,8 @@ class Router
 
             case AuthController::class:
                 $repository = new UserRepository($this->entityManager);
-                $userService = new UserService($repository);
-                return new AuthController($userService, $this->mailService);
+                $userService = new UserService($repository, $this->mailService);
+                return new AuthController($userService);
 
             case DepartmentController::class:
                 $repository = new DepartmentRepository($this->entityManager);
