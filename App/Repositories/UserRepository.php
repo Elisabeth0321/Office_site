@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Repositories;
 
@@ -19,80 +19,60 @@ class UserRepository
     public function findAll(): array
     {
         $stmt = $this->entityManager->getConnection()->query("SELECT * FROM users");
-        return $stmt->fetchAll(PDO::FETCH_CLASS, User::class);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map([$this, 'mapRowToUser'], $results);
     }
 
     public function find(int $id): ?User
     {
         $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$data) {
-            return null;
-        }
-
-        $user = new User();
-        $user->id = $data['id'];
-        $user->firstname = $data['firstname'];
-        $user->lastname = $data['lastname'];
-        $user->email = $data['email'];
-        $user->password = $data['password'];
-        $user->salt = $data['salt'];
-        $user->token = $data['token'];
-        $user->time_last_login = $data['time_last_login'];
-        $user->is_verified = (bool)$data['is_verified'];
-
-        return $user;
+        return $row ? $this->mapRowToUser($row) : null;
     }
 
     public function findByEmail(string $email): ?User
     {
         $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$data) {
-            return null;
-        }
+        return $row ? $this->mapRowToUser($row) : null;
+    }
 
-        $user = new User();
-        $user->id = $data['id'];
-        $user->firstname = $data['firstname'];
-        $user->lastname = $data['lastname'];
-        $user->email = $data['email'];
-        $user->password = $data['password'];
-        $user->salt = $data['salt'];
-        $user->token = $data['token'];
-        $user->time_last_login = $data['time_last_login'];
-        $user->is_verified = (bool)$data['is_verified'];
+    public function findByToken(string $token): ?User
+    {
+        $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM users WHERE token = ?");
+        $stmt->execute([$token]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $user;
+        return $row ? $this->mapRowToUser($row) : null;
     }
 
     public function add(User $user): bool
     {
         $stmt = $this->entityManager->getConnection()->prepare(
-            "INSERT INTO users (id, firstname, lastname, email, password, salt, token, time_last_login, is_verified) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO users (firstname, lastname, email, password, salt, token, time_last_login, is_verified)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         );
         return $stmt->execute([
-            $user->id,
             $user->getFirstname(),
             $user->getLastname(),
             $user->getEmail(),
             $user->getPassword(),
             $user->getSalt(),
             $user->getToken(),
-            $user->getTimeLastLogin(),
-            $user->isVerified()
+            $user->getTimeLastLogin()?->format('Y-m-d H:i:s'),
+            (int) $user->isVerified()
         ]);
     }
 
     public function update(User $user): bool
     {
         $stmt = $this->entityManager->getConnection()->prepare(
-            "UPDATE users SET firstname = ?, lastname = ?, email = ?, password = ?, salt = ?, token = ?, time_last_login = ?, is_verified = ? 
+            "UPDATE users SET firstname = ?, lastname = ?, email = ?, password = ?, salt = ?, token = ?, time_last_login = ?, is_verified = ?
              WHERE id = ?"
         );
         return $stmt->execute([
@@ -102,9 +82,9 @@ class UserRepository
             $user->getPassword(),
             $user->getSalt(),
             $user->getToken(),
-            $user->getTimeLastLogin(),
-            $user->isVerified(),
-            $user->id
+            $user->getTimeLastLogin()?->format('Y-m-d H:i:s'),
+            (int) $user->isVerified(),
+            $user->getId()
         ]);
     }
 
@@ -113,4 +93,28 @@ class UserRepository
         $stmt = $this->entityManager->getConnection()->prepare("DELETE FROM users WHERE id = ?");
         return $stmt->execute([$id]);
     }
+
+    private function mapRowToUser(array $row): User
+    {
+        return new User(
+            (int)$row['id'],
+            $row['firstname'],
+            $row['lastname'],
+            $row['email'],
+            $row['password'],
+            $row['salt'],
+            $row['token'] ?? null,
+            $row['time_last_login'] ?? null,
+            (bool) $row['is_verified']
+        );
+    }
+
+    public function updateLoginData(int $userId, ?string $token): bool
+    {
+        $stmt = $this->entityManager->getConnection()->prepare(
+            "UPDATE users SET token = ?, time_last_login = NOW() WHERE id = ?"
+        );
+        return $stmt->execute([$token, $userId]);
+    }
+
 }

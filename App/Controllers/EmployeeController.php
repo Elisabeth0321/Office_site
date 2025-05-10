@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controllers;
 
@@ -13,13 +13,11 @@ class EmployeeController
     private DepartmentService $departmentService;
     private TemplateEngine $templateEngine;
 
-    public function __construct(
-        EmployeeService $employeeService,
-        DepartmentService $departmentService
-    ) {
-        $this->employeeService   = $employeeService;
+    public function __construct(EmployeeService $employeeService, DepartmentService $departmentService)
+    {
+        $this->employeeService = $employeeService;
         $this->departmentService = $departmentService;
-        $this->templateEngine    = new TemplateEngine();
+        $this->templateEngine = new TemplateEngine();
     }
 
     public function listAction(): void
@@ -52,15 +50,15 @@ class EmployeeController
             __DIR__ . '/../../public/views/employee/employee_list.html',
             [
                 'department' => $department,
-                'employees'  => $employees,
+                'employees' => $employees,
             ]
         );
     }
 
     public function deleteAction(): void
     {
-        $id         = isset($_GET['id']) ? (int)$_GET['id'] : null;
-        $deptId     = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        $deptId = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
         if (!$id) {
             echo "ID сотрудника не указан";
             return;
@@ -87,10 +85,10 @@ class EmployeeController
 
     public function addAction(): void
     {
-        $name     = $_POST['name'] ?? '';
-        $salary   = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
+        $name = $_POST['name'] ?? '';
+        $salary = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
         $position = $_POST['position'] ?? '';
-        $deptId   = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
+        $deptId = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
 
         if ($name === '' || $position === '') {
             echo "Все поля обязательны для заполнения";
@@ -114,7 +112,7 @@ class EmployeeController
             return;
         }
 
-        $employee    = $this->employeeService->getEmployeeById($id);
+        $employee = $this->employeeService->getEmployeeById($id);
         $departments = $this->departmentService->getAllDepartments();
 
         if (!$employee) {
@@ -125,7 +123,7 @@ class EmployeeController
         echo $this->templateEngine->render(
             __DIR__ . '/../../public/views/employee/employee_edit_form.html',
             [
-                'employee'    => $employee,
+                'employee' => $employee,
                 'departments' => $departments,
             ]
         );
@@ -139,10 +137,10 @@ class EmployeeController
             return;
         }
 
-        $name       = $_POST['name'] ?? '';
-        $salary     = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
-        $position   = $_POST['position'] ?? '';
-        $deptId     = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
+        $name = $_POST['name'] ?? '';
+        $salary = isset($_POST['salary']) ? (float)$_POST['salary'] : 0.0;
+        $position = $_POST['position'] ?? '';
+        $deptId = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
 
         if ($name === '' || $position === '') {
             echo "Все поля обязательны для заполнения";

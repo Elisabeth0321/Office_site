@@ -1,28 +1,43 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Core;
 
-use App\Controllers\Admin\FileManagerController;
 use App\Controllers\AdminController;
+use App\Controllers\AuthController;
 use App\Controllers\DepartmentController;
 use App\Controllers\EmployeeController;
+use App\Controllers\MainController;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\EmployeeRepository;
-use App\Services\Admin\FileManagerService;
+use App\Repositories\UserRepository;
 use App\Services\AdminService;
 use App\Services\DepartmentService;
 use App\Services\EmployeeService;
+use App\Services\MailService;
+use App\Services\UserService;
 
 class Router
 {
     private array $routes;
     private EntityManager $entityManager;
+    private MailService $mailService;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, MailService $mailService)
     {
         $this->entityManager = $entityManager;
+        $this->mailService = $mailService;
         $this->routes = [
+            '/office-manager' => ['App\Controllers\MainController', 'mainPageAction'],
+
+            '/verify-email' => ['App\Controllers\AuthController', 'verifyEmailAction'],
+            '/register-form' => ['App\Controllers\AuthController', 'registerFormAction'],
+            '/register' => ['App\Controllers\AuthController', 'registerAction'],
+            '/login-form' => ['App\Controllers\AuthController', 'loginFormAction'],
+            '/login' => ['App\Controllers\AuthController', 'loginAction'],
+            '/logout' => ['App\Controllers\AuthController', 'logoutAction'],
+            '/get-salt' => ['App\Controllers\AuthController', 'getSaltAction'],
+
             '/departments' => ['App\Controllers\DepartmentController', 'listAction'],
             '/departments/delete' => ['App\Controllers\DepartmentController', 'deleteAction'],
             '/departments/add' => ['App\Controllers\DepartmentController', 'addAction'],
@@ -67,6 +82,19 @@ class Router
     private function createController(string $controllerClass): object
     {
         switch ($controllerClass) {
+            case MainController::class:
+                return new MainController();
+
+            case AuthController::class:
+                $repository = new UserRepository($this->entityManager);
+                $userService = new UserService($repository);
+                return new AuthController($userService, $this->mailService);
+
+            case DepartmentController::class:
+                $repository = new DepartmentRepository($this->entityManager);
+                $service = new DepartmentService($repository);
+                return new DepartmentController($service);
+
             case EmployeeController::class:
                 $departmentRepository = new DepartmentRepository($this->entityManager);
                 $departmentService = new DepartmentService($departmentRepository);
@@ -74,13 +102,9 @@ class Router
                 $employeeService = new EmployeeService($employeeRepository, $departmentRepository);
                 return new EmployeeController($employeeService, $departmentService);
 
-            case DepartmentController::class:
-                $repository = new DepartmentRepository($this->entityManager);
-                $service = new DepartmentService($repository);
-                return new DepartmentController($service);
-
             case AdminController::class:
-                return new AdminController(new AdminService());
+                $service = new AdminService();
+                return new AdminController($service);
 
             default:
                 throw new \RuntimeException("Unknown controller: {$controllerClass}");

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -11,26 +11,30 @@ class User
     private string $email;
     private string $password;
     private string $salt;
-    private ?string $token = null;
-    private ?\DateTimeImmutable $timeLastLogin = null;
-    private bool $isVerified = false;
+    private ?string $token;
+    private ?\DateTimeImmutable $timeLastLogin;
+    private bool $isVerified;
     private ?Employee $employee = null;
 
     public function __construct(
-        int $id,
+        ?int $id,
         string $firstname,
         string $lastname,
         string $email,
         string $password,
         string $salt,
+        ?string $token = null,
+        ?string $timeLastLogin = null,
         bool $isVerified = false
     ) {
-        $this->id = $id;
+        $this->id = $id ?? 0;
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->email = $email;
         $this->password = $password;
         $this->salt = $salt;
+        $this->token = $token;
+        $this->timeLastLogin = $timeLastLogin ? new \DateTimeImmutable($timeLastLogin) : null;
         $this->isVerified = $isVerified;
     }
 

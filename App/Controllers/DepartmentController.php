@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Controllers;
 
@@ -14,7 +14,7 @@ class DepartmentController
     public function __construct(DepartmentService $departmentService)
     {
         $this->departmentService = $departmentService;
-        $this->templateEngine    = new TemplateEngine();
+        $this->templateEngine = new TemplateEngine();
     }
 
     public function listAction(): void
@@ -38,13 +38,6 @@ class DepartmentController
         $this->departmentService->deleteDepartment($id);
         header('Location: /departments');
         exit();
-    }
-
-    public function addFormAction(): void
-    {
-        echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/department/department_add_form.html'
-        );
     }
 
     public function addAction(): void

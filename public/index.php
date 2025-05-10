@@ -4,13 +4,18 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Router;
 use App\Core\EntityManager;
+use App\Core\TemplateEngine;
+use App\Services\MailService;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
-$entityManager = new EntityManager($_ENV['DB_HOST'], $_ENV['DB_NAME'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
+$mailConfig = __DIR__ . '/../mail_config.ini';
 
-$router = new Router($entityManager);
+$entityManager = new EntityManager($_ENV['DB_HOST'], $_ENV['DB_NAME'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
+$mailService = new MailService(parse_ini_file($mailConfig));
+
+$router = new Router($entityManager, $mailService);
 
 $router->dispatch($_SERVER['REQUEST_URI']);

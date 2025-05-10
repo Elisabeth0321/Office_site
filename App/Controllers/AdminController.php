@@ -9,21 +9,20 @@ use App\Services\AdminService;
 class AdminController
 {
     private AdminService $adminService;
+    private TemplateEngine $templateEngine;
 
     public function __construct(AdminService $adminService)
     {
         $this->adminService = $adminService;
+        $this->templateEngine = new TemplateEngine();
     }
 
     public function indexAction(): void
     {
         $relativePath = $_GET['path'] ?? '';
         $templatePath = __DIR__ . '/../../public/views/admin/file_manager.html';
-        $templateEngine = new TemplateEngine();
-
         $viewData = $this->adminService->getFileListViewData($relativePath);
-
-        echo $templateEngine->render($templatePath, $viewData);
+        echo $this->templateEngine->render($templatePath, $viewData);
     }
 
     public function uploadAction(): void
@@ -54,12 +53,10 @@ class AdminController
     public function editAction(): void
     {
         $templatePath = __DIR__ . '/../../public/views/admin/edit_file.html';
-        $templateEngine = new TemplateEngine();
-
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $relativePath = $_GET['file'] ?? '';
             $viewData = $this->adminService->getEditFileViewData($relativePath);
-            echo $templateEngine->render($templatePath, $viewData);
+            echo $this->templateEngine->render($templatePath, $viewData);
         } else {
             try {
                 $this->adminService->editFile($_POST['file'], $_POST['content']);

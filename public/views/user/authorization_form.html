@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/login/authentificate.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Авторизация</h1>
+    <form id="login-form" method="post">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label>
+            <input type="checkbox" id="rememberMe" name="rememberMe"> Запомнить меня
+        </label>
+
+        <div class="g-recaptcha"></div>
+
+        <div id="error-message"></div>
+
+        <button type="submit" class="btn-add">Войти</button>
+
+    </form>
+</div>
+<script type="module">
+    import LoginForm from '/../../assets/js/login.js';
+
+    window.addEventListener('load', () => {
+        new LoginForm('login-form', 'error-message');
+    });
+</script>
+</body>
+</html>
