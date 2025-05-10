@@ -19,10 +19,10 @@ class DepartmentController
 
     public function listAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/department/department_list.html';
         $departments = $this->departmentService->getAllDepartments();
-
         echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/department/department_list.html',
+            $templatePath,
             ['departments' => $departments]
         );
     }

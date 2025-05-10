@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Core\TemplateEngine;
-use App\Services\MailService;
 use App\Services\UserService;
 
-class AuthController
+class UserController
 {
     private UserService $userService;
     private TemplateEngine $templateEngine;
@@ -27,7 +26,6 @@ class AuthController
     public function registerAction(): void
     {
         $input = json_decode(file_get_contents('php://input'), true);
-
         $result = $this->userService->processRegistration($input);
 
         http_response_code($result['status']);
@@ -36,9 +34,9 @@ class AuthController
 
     public function verifyEmailAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/user/email_verified.html';
         $token = $_GET['token'] ?? '';
         if ($token && $this->userService->verifyEmail($token)) {
-            $templatePath = __DIR__ . '/../../public/views/user/email_verified.html';
             echo $this->templateEngine->render($templatePath);
         } else {
             echo "Недействительная или просроченная ссылка.";
@@ -53,6 +51,10 @@ class AuthController
 
     public function loginAction(): void
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $input = json_decode(file_get_contents('php://input'), true);
 
         $result = $this->userService->processLogin($input);
@@ -73,24 +75,24 @@ class AuthController
         header('Location: /office-manager');
     }
 
-    public function getSaltAction(): void
+    public function mainPageAction(): void
     {
-        $email = trim($_GET['email'] ?? '');
+        $templatePath = __DIR__ . '/../../public/views/main.html';
 
-        if (!$email) {
-            http_response_code(400);
-            echo json_encode(['message' => 'Email не указан']);
-            return;
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
 
-        $user = $this->userService->findByEmail($email);
-
-        if (!$user) {
-            http_response_code(404);
-            echo json_encode(['message' => 'Пользователь не найден']);
-            return;
+        $user = null;
+        if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_token'])) {
+            $user = $this->userService->findByToken($_COOKIE['remember_token']);
+            if ($user) {
+                $_SESSION['user_id'] = $user->getId();
+            }
+        } elseif (isset($_SESSION['user_id'])) {
+            $user = $this->userService->findById($_SESSION['user_id']);
         }
 
-        echo json_encode(['salt' => $user->getSalt()]);
+        echo $this->templateEngine->render($templatePath, ['user' => $user]);
     }
 }

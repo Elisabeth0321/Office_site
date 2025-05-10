@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use DateTimeImmutable;
+
 class User
 {
     private int $id;
@@ -24,7 +26,7 @@ class User
         string $password,
         string $salt,
         ?string $token = null,
-        ?string $timeLastLogin = null,
+        string $timeLastLogin = null,
         bool $isVerified = false
     ) {
         $this->id = $id ?? 0;
@@ -34,7 +36,7 @@ class User
         $this->password = $password;
         $this->salt = $salt;
         $this->token = $token;
-        $this->timeLastLogin = $timeLastLogin ? new \DateTimeImmutable($timeLastLogin) : null;
+        $this->timeLastLogin = $timeLastLogin !== null ? new \DateTimeImmutable($timeLastLogin) : null;
         $this->isVerified = $isVerified;
     }
 

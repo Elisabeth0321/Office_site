@@ -55,6 +55,7 @@ class UserService
     {
         $email = trim($input['email'] ?? '');
         $password = $input['password'] ?? '';
+        $rememberMe = $input['rememberMe'] ?? false;
         $captcha = $input['captcha'] ?? '';
 
         if (!$email || !$password || !$captcha) {
@@ -72,23 +73,37 @@ class UserService
 
         $salt = $user->getSalt();
         $hashedPassword = hash('sha256', $password . $salt);
-
         if ($hashedPassword !== $user->getPassword()) {
             return ['status' => 401, 'message' => 'Неверный пароль'];
         }
 
         $_SESSION['user_id'] = $user->getId();
 
+        $user->setTimeLastLogin(new DateTimeImmutable());
+
+        if ($rememberMe) {
+            $token = bin2hex(random_bytes(32));
+            $user->setToken($token);
+
+            if (headers_sent($file, $line)) {
+                error_log("Headers already sent in $file on line $line");
+            }
+            setcookie('remember_token', $token, [
+                'expires' => time() + (86400 * 30),
+                'path' => '/',
+                'httponly' => true,
+                'secure' => false,
+                'samesite' => 'Lax'
+            ]);
+        } else {
+            $user->setToken('');
+        }
+
+        $this->userRepository->update($user);
+
+        $this->sendLoginNotification($user, $this->mailService);
+
         return ['status' => 200, 'message' => 'Успешная авторизация'];
-    }
-
-    private function verifyCaptcha(string $token): bool
-    {
-        $secretKey = '6LccZjArAAAAAEIYKtf7Z0RzQcSOQ4Zi90v-rH0A';
-        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
-        $result = json_decode($verify, true);
-
-        return $result['success'] ?? false;
     }
 
     private function register(string $firstname, string $lastname, string $email, string $passwordHash, string $salt): bool
@@ -112,44 +127,37 @@ class UserService
         return $this->userRepository->add($user);
     }
 
-    private function authenticate(string $email, string $clientSideHash): ?User
+    private function verifyCaptcha(string $token): bool
     {
-        $user = $this->userRepository->findByEmail($email);
-        if (!$user) return null;
+        $secretKey = '6LccZjArAAAAAEIYKtf7Z0RzQcSOQ4Zi90v-rH0A';
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $result = json_decode($verify, true);
 
-        $expected = hash('sha256', $clientSideHash);
-
-        if ($user->getPassword() !== $expected) return null;
-
-        $user->setTimeLastLogin(new DateTimeImmutable());
-        $this->userRepository->update($user);
-
-        return $user;
-    }
-
-    private function storeRememberToken(User $user, string $token): void
-    {
-        $user->setToken($token);
-        $this->userRepository->update($user);
+        return $result['success'] ?? false;
     }
 
     public function clearRememberToken(int $userId): void
     {
-        $user = $this->userRepository->find($userId);
+        $user = $this->userRepository->findById($userId);
         if ($user) {
             $user->setToken('');
             $this->userRepository->update($user);
         }
     }
 
-    public function getUserByToken(string $token): ?User
+    public function findById(int $userId): ?User
     {
-        return $this->userRepository->findByToken($token);
+        return $this->userRepository->findById($userId);
     }
 
     public function findByEmail(string $email): ?User
     {
         return $this->userRepository->findByEmail($email);
+    }
+
+    public function findByToken(string $remember_token): ?User
+    {
+        return $this->userRepository->findByToken($remember_token);
     }
 
     public function updateLoginData(int $userId, ?string $token): void
@@ -189,6 +197,8 @@ class UserService
         Мы зафиксировали вход в ваш аккаунт. Если это были не вы — смените пароль.";
         $mailer->send($user->getEmail(), $subject, $body);
     }
+
+
 
 
 }

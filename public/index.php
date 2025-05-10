@@ -4,7 +4,6 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Router;
 use App\Core\EntityManager;
-use App\Core\TemplateEngine;
 use App\Services\MailService;
 use Dotenv\Dotenv;
 
@@ -21,5 +20,4 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $router = new Router($entityManager, $mailService);
-
 $router->dispatch($_SERVER['REQUEST_URI']);

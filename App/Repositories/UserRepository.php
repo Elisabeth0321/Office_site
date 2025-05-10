@@ -24,7 +24,7 @@ class UserRepository
         return array_map([$this, 'mapRowToUser'], $results);
     }
 
-    public function find(int $id): ?User
+    public function findById(int $id): ?User
     {
         $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);

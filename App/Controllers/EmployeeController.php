@@ -20,18 +20,10 @@ class EmployeeController
         $this->templateEngine = new TemplateEngine();
     }
 
-    public function listAction(): void
-    {
-        $employees = $this->employeeService->getAllEmployees();
-
-        echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/employee/employee_list.html',
-            ['employees' => $employees]
-        );
-    }
-
     public function listByDepartmentAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_list.html';
+
         $deptId = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$deptId) {
             echo "ID отдела не указан";
@@ -47,7 +39,7 @@ class EmployeeController
         $employees = $this->employeeService->getEmployeesByDepartment($deptId);
 
         echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/employee/employee_list.html',
+            $templatePath,
             [
                 'department' => $department,
                 'employees' => $employees,
@@ -71,6 +63,7 @@ class EmployeeController
 
     public function addFormAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_add_form.html';
         $departmentId = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
         if ($departmentId === null) {
             echo "ID отдела не указан";
@@ -78,7 +71,7 @@ class EmployeeController
         }
 
         echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/employee/employee_add_form.html',
+            $templatePath,
             ['departmentId' => $departmentId]
         );
     }
@@ -106,6 +99,7 @@ class EmployeeController
 
     public function editFormAction(): void
     {
+        $templatePath = __DIR__ . '/../../public/views/employee/employee_edit_form.html';
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$id) {
             echo "ID не указан";
@@ -121,7 +115,7 @@ class EmployeeController
         }
 
         echo $this->templateEngine->render(
-            __DIR__ . '/../../public/views/employee/employee_edit_form.html',
+            $templatePath,
             [
                 'employee' => $employee,
                 'departments' => $departments,

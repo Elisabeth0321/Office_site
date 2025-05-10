@@ -6,19 +6,26 @@
     <title>Офис-менеджер</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/main/main.css"/>
 </head>
+<body>
 <div class="container">
-    <body>
     <header>
         <div class="top-buttons">
+            {{if ($user)}}
+            <span class="user-label">Здравствуйте, {{ user->getFirstname() }}</span>
+            <a href="/profile" class="btn-nav">Личный кабинет</a>
+            <a href="/logout" class="btn-nav">Выйти</a>
+            {{else}}
             <a href="/login-form" class="btn-nav">Войти</a>
             <a href="/register-form" class="btn-nav">Регистрация</a>
-            <a href="/logout" class="btn-nav">Выйти</a>
+            {{endif}}
         </div>
     </header>
+
     <main>
         <h1>Добро пожаловать в Офис-менеджер</h1>
         <a href="/departments" class="main-button">Перейти к списку отделов</a>
     </main>
+
     <footer>
         <div class="footer-content">
             <p>© 2025 Офис-менеджер. Все права защищены.</p>
@@ -28,6 +35,6 @@
             </p>
         </div>
     </footer>
-    </body>
 </div>
+</body>
 </html>

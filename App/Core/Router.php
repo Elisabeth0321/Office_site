@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace App\Core;
 
 use App\Controllers\AdminController;
-use App\Controllers\AuthController;
+use App\Controllers\UserController;
 use App\Controllers\DepartmentController;
 use App\Controllers\EmployeeController;
-use App\Controllers\MainController;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\UserRepository;
@@ -28,15 +27,14 @@ class Router
         $this->entityManager = $entityManager;
         $this->mailService = $mailService;
         $this->routes = [
-            '/office-manager' => ['App\Controllers\MainController', 'mainPageAction'],
+            '/office-manager' => ['App\Controllers\UserController', 'mainPageAction'],
 
-            '/register-form' => ['App\Controllers\AuthController', 'registerFormAction'],
-            '/register' => ['App\Controllers\AuthController', 'registerAction'],
-            '/verify-email' => ['App\Controllers\AuthController', 'verifyEmailAction'],
-            '/login-form' => ['App\Controllers\AuthController', 'loginFormAction'],
-            '/login' => ['App\Controllers\AuthController', 'loginAction'],
-            '/logout' => ['App\Controllers\AuthController', 'logoutAction'],
-            '/get-salt' => ['App\Controllers\AuthController', 'getSaltAction'],
+            '/register-form' => ['App\Controllers\UserController', 'registerFormAction'],
+            '/register' => ['App\Controllers\UserController', 'registerAction'],
+            '/verify-email' => ['App\Controllers\UserController', 'verifyEmailAction'],
+            '/login-form' => ['App\Controllers\UserController', 'loginFormAction'],
+            '/login' => ['App\Controllers\UserController', 'loginAction'],
+            '/logout' => ['App\Controllers\UserController', 'logoutAction'],
 
             '/departments' => ['App\Controllers\DepartmentController', 'listAction'],
             '/departments/delete' => ['App\Controllers\DepartmentController', 'deleteAction'],
@@ -82,13 +80,10 @@ class Router
     private function createController(string $controllerClass): object
     {
         switch ($controllerClass) {
-            case MainController::class:
-                return new MainController();
-
-            case AuthController::class:
+            case UserController::class:
                 $repository = new UserRepository($this->entityManager);
                 $userService = new UserService($repository, $this->mailService);
-                return new AuthController($userService);
+                return new UserController($userService);
 
             case DepartmentController::class:
                 $repository = new DepartmentRepository($this->entityManager);
