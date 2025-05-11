@@ -31,7 +31,8 @@ class DepartmentController
     {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$id) {
-            echo "ID не указан";
+            http_response_code(400);
+            echo "ID отдела не указан";
             return;
         }
 
@@ -44,6 +45,7 @@ class DepartmentController
     {
         $name = $_POST['name'] ?? '';
         if ($name === '') {
+            http_response_code(400);
             echo "Все поля обязательны для заполнения";
             return;
         }

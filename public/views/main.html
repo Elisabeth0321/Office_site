@@ -12,7 +12,7 @@
         <div class="top-buttons">
             {{if ($user)}}
             <span class="user-label">Здравствуйте, {{ user->getFirstname() }}</span>
-            <a href="/profile" class="btn-nav">Личный кабинет</a>
+            <a href="/account" class="btn-nav">Личный кабинет</a>
             <a href="/logout" class="btn-nav">Выйти</a>
             {{else}}
             <a href="/login-form" class="btn-nav">Войти</a>

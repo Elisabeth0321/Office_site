@@ -1,28 +1,28 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Services;
 
 use App\Models\Employee;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\DepartmentRepository;
+use App\Repositories\UserRepository;
 
 class EmployeeService
 {
     private EmployeeRepository $employeeRepository;
     private DepartmentRepository $departmentRepository;
+    private UserRepository $userRepository;
 
     public function __construct(
-        EmployeeRepository $employeeRepository,
-        DepartmentRepository $departmentRepository
-    ) {
-        $this->employeeRepository   = $employeeRepository;
-        $this->departmentRepository = $departmentRepository;
-    }
-
-    public function getAllEmployees(): array
+        EmployeeRepository   $employeeRepository,
+        DepartmentRepository $departmentRepository,
+        UserRepository       $userRepository
+    )
     {
-        return $this->employeeRepository->findAll();
+        $this->employeeRepository = $employeeRepository;
+        $this->departmentRepository = $departmentRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function getEmployeesByDepartment(int $departmentId): array
@@ -35,18 +35,27 @@ class EmployeeService
         return $this->employeeRepository->find($id);
     }
 
-    public function deleteEmployee(int $id): bool
+    public function getEmployeeByUserId(int $userId): ?Employee
     {
-        return $this->employeeRepository->delete($id);
+        return $this->employeeRepository->findByUserId($userId);
     }
 
     public function addEmployee(
         string $name,
-        float $salary,
+        float  $salary,
         string $position,
-        int $departmentId
-    ): bool {
-        // Загружаем Department по ID
+        int    $departmentId
+    ): bool
+    {
+        if (!isset($_SESSION['user_id'])) {
+            throw new \RuntimeException("Не авторизован");
+        }
+
+        $user = $this->userRepository->findById((int)$_SESSION['user_id']);
+        if (!$user) {
+            throw new \RuntimeException("Пользователь с ID {$_SESSION['user_id']} не найден.");
+        }
+
         $department = $this->departmentRepository->find($departmentId);
         if (!$department) {
             throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
@@ -58,17 +67,19 @@ class EmployeeService
         $employee->setSalary($salary);
         $employee->setPosition($position);
         $employee->setDepartment($department);
+        $employee->setUser($user);
 
         return $this->employeeRepository->add($employee);
     }
 
     public function updateEmployee(
-        int $id,
+        int    $id,
         string $name,
-        float $salary,
+        float  $salary,
         string $position,
-        int $departmentId
-    ): bool {
+        int    $departmentId
+    ): bool
+    {
         $department = $this->departmentRepository->find($departmentId);
         if (!$department) {
             throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
@@ -82,5 +93,10 @@ class EmployeeService
         $employee->setDepartment($department);
 
         return $this->employeeRepository->update($employee);
+    }
+
+    public function deleteEmployee(int $id): bool
+    {
+        return $this->employeeRepository->delete($id);
     }
 }

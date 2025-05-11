@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>Редактировать сотрудника</h1>
-    <form action="/employees/edit" method="POST">
+    <form action="/employee/edit" method="POST">
         {{if !empty($employee)}}
         <input type="hidden" name="id" value="{{ employee->getId() }}">
 
@@ -27,7 +27,7 @@
             <option value="" disabled>Выберите департамент</option>
             {{foreach $departments as $department}}
             <option value="{{ department->getId() }}"
-                    {{if $department->getId() == $employee->getDepartmentId()}} selected {{endif}}>
+                    {{if $department->getId() == $employee->getDepartment()->getId()}} selected {{endif}}>
                 {{ department->getName() }}
             </option>
             {{endforeach}}

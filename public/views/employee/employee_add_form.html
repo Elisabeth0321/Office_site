@@ -9,8 +9,7 @@
 <body>
 <div class="container">
     <h1>Добавить сотрудника</h1>
-    <form action="/employees/add" method="POST">
-        <input type="hidden" name="departmentId" value="{{ departmentId }}">
+    <form action="/employee/add" method="POST">
 
         <label for="name">Имя:</label>
         <input type="text" id="name" name="name" required>
@@ -20,6 +19,16 @@
 
         <label for="position">Должность:</label>
         <input type="text" id="position" name="position" required>
+
+        <label for="department">Отдел:</label>
+        <select id="department" name="departmentId" required>
+            <option value="" disabled>Выберите отдел</option>
+            {{foreach $departments as $department}}
+            <option value="{{ department->getId() }}">
+                {{ department->getName() }}
+            </option>
+            {{endforeach}}
+        </select>
 
         <button type="submit" class="btn-add">Добавить</button>
     </form>

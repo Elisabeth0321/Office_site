@@ -51,6 +51,9 @@ class User
     public function isVerified(): bool { return $this->isVerified; }
     public function getEmployee(): ?Employee { return $this->employee; }
 
+    public function setFirstname(string $firstname): void { $this->firstname = $firstname; }
+    public function setLastname(string $lastname): void { $this->lastname = $lastname; }
+    public function setPassword(string $password): void { $this->password = $password; }
     public function setToken(?string $token): void { $this->token = $token; }
     public function setTimeLastLogin(\DateTimeImmutable $time): void { $this->timeLastLogin = $time; }
     public function setVerified(bool $v): void { $this->isVerified = $v; }

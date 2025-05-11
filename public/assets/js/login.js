@@ -27,8 +27,12 @@ class LoginForm {
         e.preventDefault();
         this.errorBox.textContent = '';
 
+        const loader = document.getElementById('loading-indicator');
+        loader.classList.add('visible');
+
         const captchaToken = grecaptcha.getResponse();
         if (!captchaToken) {
+            loader.classList.remove('visible');
             this.showError('Пожалуйста, подтвердите капчу.');
             return;
         }
@@ -38,6 +42,7 @@ class LoginForm {
         const rememberMe = document.getElementById('rememberMe')?.checked;
 
         if (!email || !password) {
+            loader.classList.remove('visible');
             this.showError('Все поля обязательны для заполнения.');
             return;
         }
@@ -58,6 +63,7 @@ class LoginForm {
             });
 
             const data = await response.json();
+            loader.classList.remove('visible');
 
             if (!response.ok) {
                 this.showError(data.message || 'Произошла ошибка.');
@@ -65,6 +71,7 @@ class LoginForm {
                 window.location.href = '/office-manager';
             }
         } catch {
+            loader.classList.remove('visible');
             this.showError('Ошибка соединения с сервером.');
         }
     }

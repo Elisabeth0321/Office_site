@@ -10,6 +10,7 @@ class Employee
     private float $salary;
     private string $position;
     private ?Department $department = null;
+    private ?User $user = null;
 
     public function __construct(int $id = 0, string $name = '', float $salary = 0.0, string $position = '')
     {
@@ -69,8 +70,13 @@ class Employee
         $this->department = $department;
     }
 
-    public function getDepartmentId(): ?int
+    public function setUser(?User $user): void
     {
-        return $this->department?->getId();
+        $this->user = $user;
+    }
+
+    public function getUser() : ?User
+    {
+        return $this->user;
     }
 }

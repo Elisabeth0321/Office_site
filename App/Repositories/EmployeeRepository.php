@@ -18,15 +18,6 @@ class EmployeeRepository
         $this->departmentRepo   = new DepartmentRepository($entityManager);
     }
 
-    public function findAll(): array
-    {
-        $stmt = $this->entityManager->getConnection()
-            ->query("SELECT * FROM employees");
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $this->hydrateEmployees($rows);
-    }
-
     public function findByDepartment(int $departmentId): array
     {
         $stmt = $this->entityManager->getConnection()
@@ -51,12 +42,29 @@ class EmployeeRepository
         return $this->hydrateEmployee($data);
     }
 
+    public function findByUserId(int $userId): ?Employee
+    {
+        $stmt = $this->entityManager->getConnection()
+            ->prepare("SELECT * FROM employees WHERE user_id = ?");
+        $stmt->execute([$userId]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
+
+        return $this->hydrateEmployee($data);
+    }
+
     public function add(Employee $employee): bool
     {
         $deptId = $employee->getDepartment()?->getId();
+        $userId = $employee->getUser()?->getId();
+
         $stmt = $this->entityManager->getConnection()
-            ->prepare("INSERT INTO employees (name, salary, position, department_id) VALUES (?, ?, ?, ?)");
+            ->prepare("INSERT INTO employees (user_id, name, salary, position, department_id) VALUES (?, ?, ?, ?, ?)");
         return $stmt->execute([
+            $userId,
             $employee->getName(),
             $employee->getSalary(),
             $employee->getPosition(),
@@ -113,6 +121,13 @@ class EmployeeRepository
         $department = $this->departmentRepo->find((int)$data['department_id']);
         if ($department !== null) {
             $employee->setDepartment($department);
+        }
+
+        $userRepository = new UserRepository($this->entityManager);
+        $user = $userRepository->findById((int)$data['user_id']);
+        if ($user !== null) {
+            $employee->setUser($user);
+            $user->setEmployee($employee);
         }
 
         return $employee;

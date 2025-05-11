@@ -160,12 +160,12 @@ class UserService
         return $this->userRepository->findByToken($remember_token);
     }
 
-    public function updateLoginData(int $userId, ?string $token): void
+    public function updateLoginData(int $userId, ?string $token): bool
     {
-        $this->userRepository->updateLoginData($userId, $token);
+        return $this->userRepository->updateLoginData($userId, $token);
     }
 
-    private function sendVerificationEmail(User $user, MailService $mailer): void
+    private function sendVerificationEmail(User $user, MailService $mailer): bool
     {
         $token = bin2hex(random_bytes(32));
         $user->setToken($token);
@@ -177,7 +177,7 @@ class UserService
         Пожалуйста, подтвердите вашу регистрацию, перейдя по ссылке:<br>
         <a href=\"$link\">$link</a>";
 
-        $mailer->send($user->getEmail(), $subject, $body);
+        return $mailer->send($user->getEmail(), $subject, $body);
     }
 
     public function verifyEmail(string $token): bool
@@ -190,15 +190,38 @@ class UserService
         return $this->userRepository->update($user);
     }
 
-    private function sendLoginNotification(User $user, MailService $mailer): void
+    private function sendLoginNotification(User $user, MailService $mailer): bool
     {
         $subject = "Вы вошли в аккаунт";
         $body = "Здравствуйте, {$user->getFirstname()}!<br><br>
         Мы зафиксировали вход в ваш аккаунт. Если это были не вы — смените пароль.";
-        $mailer->send($user->getEmail(), $subject, $body);
+        return $mailer->send($user->getEmail(), $subject, $body);
     }
 
+    public function delete(int $id): bool
+    {
+        return $this->userRepository->delete($id);
+    }
 
+    public function update(int $id, string $firstname, string $lastname, string $password) : bool
+    {
+        $user = $this->findById($id);
+        if (!$user) {
+            http_response_code(404);
+            echo "Пользователь не найден.";
+            return false;
+        }
 
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
+
+        if ($password) {
+            $salt = $user->getSalt();
+            $hashedPassword = hash('sha256', $password . $salt);
+            $user->setPassword($hashedPassword);
+        }
+
+        return $this->userRepository->update($user);
+    }
 
 }

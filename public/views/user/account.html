@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" type="text/css" href="../../assets/css/user/account.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="box">
+        <h2>Профиль пользователя</h2>
+        <form method="POST" action="/account/update">
+            <input type="hidden" name="user_id" value="{{ user->getId() }}">
+
+            <div class="form-group">
+                <label for="firstname">Имя</label>
+                <input type="text" name="firstname" id="firstname" value="{{ user->getFirstname() }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Фамилия</label>
+                <input type="text" name="lastname" id="lastname" value="{{ user->getLastname() }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Новый пароль</label>
+                <input type="password" name="password" id="password" placeholder="Оставьте пустым, чтобы не менять">
+            </div>
+
+            <button class="blue-button" type="submit"
+                    onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Сохранить изменения
+            </button>
+        </form>
+
+        <form method="POST" action="/account/delete" style="margin-top: 20px;">
+            <input type="hidden" name="user_id" value="{{ user->getId() }}">
+            <button class="red-button" type="submit">Удалить аккаунт</button>
+        </form>
+    </div>
+
+    <div class="box">
+        <h2>Работник</h2>
+
+        {{if isset($employee)}}
+
+        <p><strong>Имя:</strong> {{ employee->getName() }}</p>
+        <p><strong>Должность:</strong> {{ employee->getPosition() }}</p>
+        <p><strong>Зарплата:</strong> {{ employee->getSalary() }}</p>
+
+        <div class="employee-actions">
+            <a href="/employee/edit-form?id={{ employee->getId() }}" class="blue-button">Редактировать</a>
+
+            <form method="POST" action="/employee/delete?id={{ employee->getId() }}"
+                  style="display:inline-block; margin-left: 10px;">
+                <button class="red-button" type="submit" onclick="return confirm('Удалить работника?')">Удалить
+                    работника
+                </button>
+            </form>
+        </div>
+
+        {{else}}
+        <a href="/employee/add-form" class="blue-button">Добавить работника</a>
+        {{endif}}
+    </div>
+</div>
+</body>
+</html>

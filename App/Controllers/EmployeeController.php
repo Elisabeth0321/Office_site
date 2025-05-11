@@ -26,12 +26,14 @@ class EmployeeController
 
         $deptId = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$deptId) {
+            http_response_code(400);
             echo "ID отдела не указан";
             return;
         }
 
         $department = $this->departmentService->getDepartmentById($deptId);
         if (!$department) {
+            http_response_code(400);
             echo "Отдел не найден";
             return;
         }
@@ -50,30 +52,22 @@ class EmployeeController
     public function deleteAction(): void
     {
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
-        $deptId = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
         if (!$id) {
+            http_response_code(400);
             echo "ID сотрудника не указан";
             return;
         }
 
         $this->employeeService->deleteEmployee($id);
-        header("Location: /employees/department?id={$deptId}");
+        header("Location: /account");
         exit();
     }
 
     public function addFormAction(): void
     {
         $templatePath = __DIR__ . '/../../public/views/employee/employee_add_form.html';
-        $departmentId = isset($_GET['departmentId']) ? (int)$_GET['departmentId'] : null;
-        if ($departmentId === null) {
-            echo "ID отдела не указан";
-            return;
-        }
-
-        echo $this->templateEngine->render(
-            $templatePath,
-            ['departmentId' => $departmentId]
-        );
+        $departments = $this->departmentService->getAllDepartments();
+        echo $this->templateEngine->render($templatePath, ['departments' => $departments]);
     }
 
     public function addAction(): void
@@ -84,6 +78,7 @@ class EmployeeController
         $deptId = isset($_POST['departmentId']) ? (int)$_POST['departmentId'] : 0;
 
         if ($name === '' || $position === '') {
+            http_response_code(400);
             echo "Все поля обязательны для заполнения";
             return;
         }
@@ -102,32 +97,27 @@ class EmployeeController
         $templatePath = __DIR__ . '/../../public/views/employee/employee_edit_form.html';
         $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
         if (!$id) {
-            echo "ID не указан";
+            http_response_code(400);
+            echo "Не указан ID сотрудника";
             return;
         }
-
         $employee = $this->employeeService->getEmployeeById($id);
-        $departments = $this->departmentService->getAllDepartments();
-
         if (!$employee) {
+            http_response_code(400);
             echo "Сотрудник не найден";
             return;
         }
 
-        echo $this->templateEngine->render(
-            $templatePath,
-            [
-                'employee' => $employee,
-                'departments' => $departments,
-            ]
-        );
+        $departments = $this->departmentService->getAllDepartments();
+        echo $this->templateEngine->render($templatePath, ['employee' => $employee, 'departments' => $departments]);
     }
 
     public function editAction(): void
     {
         $id = isset($_POST['id']) ? (int)$_POST['id'] : null;
         if (!$id) {
-            echo "ID не указан";
+            http_response_code(400);
+            echo "Не указан ID сотрудника";
             return;
         }
 
