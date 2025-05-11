@@ -2,68 +2,87 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: #f0f8ff;
+    color: #333;
 }
 
 .container {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     max-width: 1200px;
     margin: auto;
+    padding: 20px;
 }
 
 .box {
-    flex: 1;
+    flex: 1 1 45%;
     background: #fff;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h2 {
+    color: #ff69b4;
     margin-top: 0;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
-    margin: 12px 0 4px;
+    margin: 12px 0 6px;
     font-weight: bold;
 }
 
 input, select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 12px;
+    padding: 10px;
+    margin-bottom: 16px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
-.red-button,
-.blue-button {
+.blue-button,
+.red-button {
     display: inline-block;
     text-align: center;
-    padding: 10px 16px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     color: white;
     cursor: pointer;
     text-decoration: none;
-    font-size: 14px;
-}
-
-.red-button {
-    background: #e74c3c;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
 .blue-button {
-    background: #3498db;
+    background-color: #6b5b95;
+}
+
+.blue-button:hover {
+    background-color: #ff69b4;
+}
+
+.red-button {
+    background-color: #ff69b4;
+}
+
+.red-button:hover {
+    background-color: #6b5b95;
 }
 
 .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .employee-actions {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

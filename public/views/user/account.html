@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <label for="lastname">Фамилия</label>
-                <input type="text" name="lastname" id="lastname" value="{{ user->getLastname() }}" required>
+                <input type="text" name="lastname" id="lastname" value="{{ user->getLastname() }}">
             </div>
 
             <div class="form-group">
@@ -28,19 +28,19 @@
                 <input type="password" name="password" id="password" placeholder="Оставьте пустым, чтобы не менять">
             </div>
 
-            <button class="blue-button" type="submit"
-                    onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Сохранить изменения
-            </button>
+            <button class="blue-button" type="submit">Сохранить изменения</button>
         </form>
 
         <form method="POST" action="/account/delete" style="margin-top: 20px;">
             <input type="hidden" name="user_id" value="{{ user->getId() }}">
-            <button class="red-button" type="submit">Удалить аккаунт</button>
+            <button class="red-button" type="submit"
+                    onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Удалить аккаунт
+            </button>
         </form>
     </div>
 
     <div class="box">
-        <h2>Работник</h2>
+        <h2>Сотрудник</h2>
 
         {{if isset($employee)}}
 
@@ -53,14 +53,14 @@
 
             <form method="POST" action="/employee/delete?id={{ employee->getId() }}"
                   style="display:inline-block; margin-left: 10px;">
-                <button class="red-button" type="submit" onclick="return confirm('Удалить работника?')">Удалить
-                    работника
+                <button class="red-button" type="submit" onclick="return confirm('Вы уверены?')">Удалить
+                    сотрудника
                 </button>
             </form>
         </div>
 
         {{else}}
-        <a href="/employee/add-form" class="blue-button">Добавить работника</a>
+        <a href="/employee/add-form" class="blue-button">Добавить сотрудника</a>
         {{endif}}
     </div>
 </div>

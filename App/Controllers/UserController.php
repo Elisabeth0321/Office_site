@@ -134,12 +134,17 @@ class UserController
             return;
         }
 
-        $this->userService->delete($userId);
+        try {
+            $this->userService->delete($userId);
 
-        session_destroy();
-        setcookie('remember_token', '', time() - 3600, '/', '', false, true);
+            session_destroy();
+            setcookie('remember_token', '', time() - 3600, '/', '', false, true);
 
-        header('Location: /office-manager');
+            header('Location: /office-manager');
+            exit();
+        } catch (\InvalidArgumentException $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function updateAccountAction(): void
@@ -157,10 +162,10 @@ class UserController
 
         try {
             $this->userService->update($id, $firstname, $lastname, $password);
+            header('Location: /account');
             exit();
         } catch (\InvalidArgumentException $e) {
             echo $e->getMessage();
         }
-        header('Location: /account');
     }
 }
