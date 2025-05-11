@@ -49,7 +49,6 @@ class User
     public function getToken(): ?string { return $this->token; }
     public function getTimeLastLogin(): ?\DateTimeImmutable { return $this->timeLastLogin; }
     public function isVerified(): bool { return $this->isVerified; }
-    public function getEmployee(): ?Employee { return $this->employee; }
 
     public function setFirstname(string $firstname): void { $this->firstname = $firstname; }
     public function setLastname(string $lastname): void { $this->lastname = $lastname; }

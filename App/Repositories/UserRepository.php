@@ -16,14 +16,6 @@ class UserRepository
         $this->entityManager = $entityManager;
     }
 
-    public function findAll(): array
-    {
-        $stmt = $this->entityManager->getConnection()->query("SELECT * FROM users");
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return array_map([$this, 'mapRowToUser'], $results);
-    }
-
     public function findById(int $id): ?User
     {
         $stmt = $this->entityManager->getConnection()->prepare("SELECT * FROM users WHERE id = ?");

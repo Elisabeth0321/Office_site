@@ -42,7 +42,7 @@ class MailService
 
             $mail->setFrom($this->fromEmail, $this->fromName);
             $mail->addAddress($to);
-            $mail->isHTML(true);
+            $mail->isHTML();
             $mail->Subject = $subject;
             $mail->Body = $body;
 

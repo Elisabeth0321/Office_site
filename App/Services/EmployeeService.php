@@ -7,6 +7,8 @@ use App\Models\Employee;
 use App\Repositories\EmployeeRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\UserRepository;
+use InvalidArgumentException;
+use RuntimeException;
 
 class EmployeeService
 {
@@ -48,17 +50,17 @@ class EmployeeService
     ): bool
     {
         if (!isset($_SESSION['user_id'])) {
-            throw new \RuntimeException("Не авторизован");
+            throw new RuntimeException("Не авторизован");
         }
 
         $user = $this->userRepository->findById((int)$_SESSION['user_id']);
         if (!$user) {
-            throw new \RuntimeException("Пользователь с ID {$_SESSION['user_id']} не найден.");
+            throw new RuntimeException("Пользователь с ID {$_SESSION['user_id']} не найден.");
         }
 
         $department = $this->departmentRepository->find($departmentId);
         if (!$department) {
-            throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
+            throw new InvalidArgumentException("Отдел с ID $departmentId не найден");
         }
 
         $employee = new Employee();
@@ -82,7 +84,7 @@ class EmployeeService
     {
         $department = $this->departmentRepository->find($departmentId);
         if (!$department) {
-            throw new \InvalidArgumentException("Отдел с ID {$departmentId} не найден");
+            throw new InvalidArgumentException("Отдел с ID $departmentId не найден");
         }
 
         $employee = new Employee();

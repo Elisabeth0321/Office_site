@@ -10,7 +10,7 @@ class EntityManager {
     private PDO $connection;
 
     public function __construct($host, $dbname, $user, $pass) {
-        $dsn = "mysql:host={$host};dbname={$dbname};charset=utf8";
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
         try {
             $this->connection = new PDO($dsn, $user, $pass);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

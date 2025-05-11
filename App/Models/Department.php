@@ -39,26 +39,4 @@ class Department
     /**
      * @return Employee[]
      */
-    public function getEmployees(): array
-    {
-        return $this->employees;
-    }
-
-    public function addEmployee(Employee $employee): void
-    {
-        $this->employees[] = $employee;
-        $employee->setDepartment($this);
-    }
-
-    public function removeEmployee(Employee $employee): void
-    {
-        foreach ($this->employees as $key => $e) {
-            if ($e->getId() === $employee->getId()) {
-                unset($this->employees[$key]);
-                $employee->setDepartment(null);
-                break;
-            }
-        }
-        $this->employees = array_values($this->employees);
-    }
 }

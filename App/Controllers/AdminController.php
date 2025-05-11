@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 use App\Core\TemplateEngine;
 use App\Services\AdminService;
+use Throwable;
 
 class AdminController
 {
@@ -19,54 +20,95 @@ class AdminController
 
     public function indexAction(): void
     {
-        $relativePath = $_GET['path'] ?? '';
-        $templatePath = __DIR__ . '/../../public/views/admin/file_manager.html';
-        $viewData = $this->adminService->getFileListViewData($relativePath);
-        echo $this->templateEngine->render($templatePath, $viewData);
+        try {
+            $relativePath = $_GET['path'] ?? '';
+            $templatePath = __DIR__ . '/../../public/views/admin/file_manager.html';
+            $viewData = $this->adminService->getFileListViewData($relativePath);
+            echo $this->templateEngine->render($templatePath, $viewData);
+        } catch (Throwable $e) {
+            error_log("Ошибка в indexAction (AdminController): " . $e->getMessage());
+            http_response_code(500);
+            echo "Ошибка при загрузке файлов.";
+        }
     }
 
     public function uploadAction(): void
     {
-        $relativePath = $_GET['path'] ?? '';
-        $this->adminService->uploadFile($_FILES, $relativePath);
+        try {
+            $relativePath = $_GET['path'] ?? '';
+            $this->adminService->uploadFile($_FILES, $relativePath);
+        } catch (Throwable $e) {
+            error_log("Ошибка в uploadAction (AdminController): " . $e->getMessage());
+            $_SESSION['error'] = "Не удалось загрузить файл.";
+        }
+
         header("Location: /admin/files?path=" . urlencode($relativePath));
+        exit();
     }
 
     public function createDirectoryAction(): void
     {
-        $relativePath = $_GET['path'] ?? '';
-        $this->adminService->createDirectory($_POST['directory'], $relativePath);
+        try {
+            $relativePath = $_GET['path'] ?? '';
+            $this->adminService->createDirectory($_POST['directory'], $relativePath);
+        } catch (Throwable $e) {
+            error_log("Ошибка в createDirectoryAction (AdminController): " . $e->getMessage());
+            $_SESSION['error'] = "Не удалось создать каталог.";
+        }
+
         header("Location: /admin/files?path=" . urlencode($relativePath));
+        exit();
     }
 
     public function downloadAction(): void
     {
-        $this->adminService->downloadFile($_GET['file']);
+        try {
+            $this->adminService->downloadFile($_GET['file']);
+        } catch (Throwable $e) {
+            error_log("Ошибка в downloadAction (AdminController): " . $e->getMessage());
+            http_response_code(500);
+            echo "Ошибка при скачивании файла.";
+        }
     }
 
     public function deleteAction(): void
     {
-        $this->adminService->deleteFile($_POST['file']);
+        try {
+            $this->adminService->deleteFile($_POST['file']);
+        } catch (Throwable $e) {
+            error_log("Ошибка в deleteAction (AdminController): " . $e->getMessage());
+            $_SESSION['error'] = "Не удалось удалить файл.";
+        }
+
         header("Location: /admin/files");
+        exit();
     }
 
     public function editAction(): void
     {
         $templatePath = __DIR__ . '/../../public/views/admin/edit_file.html';
+
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $relativePath = $_GET['file'] ?? '';
-            $viewData = $this->adminService->getEditFileViewData($relativePath);
-            echo $this->templateEngine->render($templatePath, $viewData);
+            try {
+                $relativePath = $_GET['file'] ?? '';
+                $viewData = $this->adminService->getEditFileViewData($relativePath);
+                echo $this->templateEngine->render($templatePath, $viewData);
+            } catch (Throwable $e) {
+                error_log("Ошибка в editAction GET (AdminController): " . $e->getMessage());
+                http_response_code(500);
+                echo "Ошибка при загрузке файла для редактирования.";
+            }
         } else {
             try {
                 $this->adminService->editFile($_POST['file'], $_POST['content']);
                 $_SESSION['success'] = "Файл успешно сохранён";
-            } catch (\Exception $e) {
-                $_SESSION['error'] = $e->getMessage();
+            } catch (Throwable $e) {
+                error_log("Ошибка в editAction POST (AdminController): " . $e->getMessage());
+                $_SESSION['error'] = "Не удалось сохранить файл.";
             }
 
             header("Location: " . ($_SERVER['HTTP_REFERER'] ?? '/admin/files'));
-            exit;
+            exit();
         }
     }
 }

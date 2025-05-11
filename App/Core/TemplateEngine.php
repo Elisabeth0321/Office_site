@@ -3,12 +3,14 @@ declare(strict_types = 1);
 
 namespace App\Core;
 
+use Exception;
+
 class TemplateEngine
 {
     public function render(string $templatePath, array $data = []): string
     {
         if (!file_exists($templatePath)) {
-            throw new \Exception("Ошибка: Шаблон не найден - {$templatePath}");
+            throw new Exception("Ошибка: Шаблон не найден - $templatePath");
         }
 
         $templateContent = file_get_contents($templatePath);

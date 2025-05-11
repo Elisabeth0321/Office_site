@@ -15,6 +15,7 @@ use App\Services\DepartmentService;
 use App\Services\EmployeeService;
 use App\Services\MailService;
 use App\Services\UserService;
+use RuntimeException;
 
 class Router
 {
@@ -103,7 +104,7 @@ class Router
                 $adminService = new AdminService();
                 return new AdminController($adminService);
             default:
-                throw new \RuntimeException("Unknown controller: {$controllerClass}");
+                throw new RuntimeException("Unknown controller: $controllerClass");
         }
     }
 

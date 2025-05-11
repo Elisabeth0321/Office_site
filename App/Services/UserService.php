@@ -130,7 +130,7 @@ class UserService
     private function verifyCaptcha(string $token): bool
     {
         $secretKey = '6LccZjArAAAAAEIYKtf7Z0RzQcSOQ4Zi90v-rH0A';
-        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$token}");
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$token");
         $result = json_decode($verify, true);
 
         return $result['success'] ?? false;
@@ -158,11 +158,6 @@ class UserService
     public function findByToken(string $remember_token): ?User
     {
         return $this->userRepository->findByToken($remember_token);
-    }
-
-    public function updateLoginData(int $userId, ?string $token): bool
-    {
-        return $this->userRepository->updateLoginData($userId, $token);
     }
 
     private function sendVerificationEmail(User $user, MailService $mailer): bool

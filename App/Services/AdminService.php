@@ -3,6 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Services;
 
+use Exception;
+use RuntimeException;
+
 class AdminService
 {
     private string $baseDir;
@@ -12,7 +15,7 @@ class AdminService
     {
         $this->baseDir = realpath(__DIR__ . '/../../public') . '/';
         if (!is_dir($this->baseDir)) {
-            throw new \RuntimeException("Базовая директория не существует: " . $this->baseDir);
+            throw new RuntimeException("Базовая директория не существует: " . $this->baseDir);
         }
     }
 
@@ -72,18 +75,18 @@ class AdminService
     public function uploadFile(array $file, string $relativePath = ''): void
     {
         if (!isset($file['file']) || $file['file']['error'] !== UPLOAD_ERR_OK) {
-            throw new \Exception("Ошибка загрузки файла");
+            throw new Exception("Ошибка загрузки файла");
         }
 
         if (!$this->isAllowedExtension($file['file']['name'])) {
-            throw new \Exception("File type not allowed");
+            throw new Exception("File type not allowed");
         }
 
         $targetDir = $this->sanitizePath($relativePath);
         $destination = $targetDir . basename($file['file']['name']);
 
         if (!move_uploaded_file($file['file']['tmp_name'], $destination)) {
-            throw new \Exception("Ошибка при сохранении файла");
+            throw new Exception("Ошибка при сохранении файла");
         }
     }
 
@@ -95,7 +98,7 @@ class AdminService
 
         if (!is_dir($dirPath)) {
             if (!mkdir($dirPath, 0777, true) && !is_dir($dirPath)) {
-                throw new \RuntimeException(sprintf('Directory "%s" could not be created', $dirPath));
+                throw new RuntimeException(sprintf('Directory "%s" could not be created', $dirPath));
             }
         }
     }
@@ -104,7 +107,7 @@ class AdminService
     {
         $filename = basename($relativePath);
         if (!$this->isAllowedExtension($filename) && !is_dir($this->sanitizePath($relativePath))) {
-            throw new \Exception("File type not allowed");
+            throw new Exception("File type not allowed");
         }
 
         if (file_exists($relativePath)) {
@@ -114,7 +117,7 @@ class AdminService
         readfile($relativePath);
         exit;
         } else {
-            throw new \Exception("Файл не найден");
+            throw new Exception("Файл не найден");
         }
     }
 
@@ -131,7 +134,7 @@ class AdminService
         }
 
         if (!rmdir($dir)) {
-            throw new \Exception("Failed to remove directory: " . $dir);
+            throw new Exception("Failed to remove directory: " . $dir);
         }
     }
 
@@ -140,18 +143,18 @@ class AdminService
         $filename = basename($relativePath);
 
         if (!is_dir($relativePath) && !$this->isAllowedExtension($filename)) {
-            throw new \Exception("File type not allowed");
+            throw new Exception("File type not allowed");
         }
 
         if (!file_exists($relativePath)) {
-            throw new \Exception("File or directory not found: " . $filename);
+            throw new Exception("File or directory not found: " . $filename);
         }
 
         if (is_dir($relativePath)) {
             $this->deleteDirectory($relativePath);
         } else {
             if (!unlink($relativePath)) {
-                throw new \Exception("Failed to delete file: " . $filename);
+                throw new Exception("Failed to delete file: " . $filename);
             }
         }
     }
@@ -172,27 +175,27 @@ class AdminService
         if (file_exists($relativePath) && is_writable($relativePath)) {
             file_put_contents($relativePath, $content);
         } else {
-            throw new \Exception("Файл недоступен для записи");
+            throw new Exception("Файл недоступен для записи");
         }
     }
 
     public function getFileContent(string $relativePath): string
     {
         if (is_dir($relativePath)) {
-            throw new \Exception("Это директория, а не файл");
+            throw new Exception("Это директория, а не файл");
         }
 
         if (!file_exists($relativePath)) {
-            throw new \Exception("Файл не найден");
+            throw new Exception("Файл не найден");
         }
 
         if (!is_readable($relativePath)) {
-            throw new \Exception("Нет прав на чтение файла");
+            throw new Exception("Нет прав на чтение файла");
         }
 
         $content = file_get_contents($relativePath);
         if ($content === false) {
-            throw new \Exception("Ошибка чтения файла");
+            throw new Exception("Ошибка чтения файла");
         }
 
         return file_get_contents($relativePath);
@@ -204,11 +207,11 @@ class AdminService
         $realPath = realpath($fullPath);
 
         if ($realPath === false || !file_exists($realPath)) {
-            throw new \Exception("Файл или директория не существует: " . $relativePath);
+            throw new Exception("Файл или директория не существует: " . $relativePath);
         }
 
-        if (strpos($realPath, $this->baseDir) !== 0) {
-            throw new \Exception("Доступ запрещён: " . $relativePath);
+        if (!str_starts_with($realPath, $this->baseDir)) {
+            throw new Exception("Доступ запрещён: " . $relativePath);
         }
 
         return $realPath;
@@ -222,8 +225,8 @@ class AdminService
         $baseDir = rtrim($this->baseDir, '/') . '/';
         $path = rtrim($path, '/') . '/';
 
-        if (strpos($path, $baseDir) !== 0) {
-            throw new \Exception("Access denied: {$relativePath} is not inside public directory");
+        if (!str_starts_with($path, $baseDir)) {
+            throw new Exception("Access denied: $relativePath is not inside public directory");
         }
 
         return $path;
